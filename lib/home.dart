@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/ui/profile_tab/update_profile.dart';
 
 
 class Home extends StatefulWidget {
@@ -11,8 +12,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-    );
+    return const UpdateProfile();
   }
 }
