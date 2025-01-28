@@ -42,10 +42,12 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.dark,
           locale: Locale(locale),
           initialRoute: LoginScreen.loginScreenId,
+
           routes: {
             Home.homeScreenId: (context) => const Home(),
             LoginScreen.loginScreenId: (context) => LoginScreen(),
           },
+
         );
       },
 

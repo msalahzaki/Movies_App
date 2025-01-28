@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/auth/register/register_screen_view.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 
-import '../auth/widget/language_widget.dart';
+import '../../auth/widget/language_widget.dart';
+
+
 
 class LoginScreen extends StatefulWidget {
   static const String loginScreenId = "LoginScreen";
@@ -48,7 +51,6 @@ class _LoginScreenState extends State<LoginScreen> {
                  suffixIcon: IconButton(onPressed: (){
                    obsecure = !obsecure;
                    setState(() {
-
                    });
                  },icon: Icon(obsecure?Icons.visibility_off:Icons.visibility),),
                  prefixIcon: Image.asset(AppAssets.passwordIcon),
@@ -80,16 +82,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: height * 0.02,
               ),
               Center(
-                child: Text.rich(TextSpan(children: <InlineSpan>[
-                  TextSpan(
-                    text: 'Don’t Have Account ? ',
-                    style: AppStyles.normal14white,
-                  ),
-                  TextSpan(
-                    text: 'Create One',
-                    style: AppStyles.normal14primary,
-                  )
-                ])),
+                child: InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreenView(),));
+                  },
+                  child: Text.rich(TextSpan(children: <InlineSpan>[
+                    TextSpan(
+                      text: 'Don’t Have Account ? ',
+                      style: AppStyles.normal14white,
+                    ),
+                    TextSpan(
+                      text: 'Create One',
+                      style: AppStyles.normal14primary,
+                    )
+                  ])),
+                ),
               ),
               SizedBox(
                 height: height * 0.03,

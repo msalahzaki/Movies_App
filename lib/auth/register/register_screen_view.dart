@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/ui/login/login_screen.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movies_app/utils/custom_elevated_button.dart';
 import 'package:movies_app/utils/custom_text_field.dart';
 
-class RegisterScreenView extends StatelessWidget {
+class RegisterScreenView extends StatefulWidget {
   static const String routeName = 'register';
 
   const RegisterScreenView({super.key});
 
+  @override
+  State<RegisterScreenView> createState() => _RegisterScreenViewState();
+}
+
+class _RegisterScreenViewState extends State<RegisterScreenView> {
+  bool obsecure = false;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -64,22 +71,33 @@ class RegisterScreenView extends StatelessWidget {
             ),
             SizedBox(height: height * 0.025,),
             CustomTextField(
+              obscureText: obsecure,
               hintText: 'Password',
               hintStyle: AppStyles.normal16white,
               style: AppStyles.normal16white,
               prefixIcon: ImageIcon(AssetImage(AppAssets.passwordIcon)),
-              suffixIcon: ImageIcon(AssetImage(AppAssets.showPasswordIcon)),
+              suffixIcon: IconButton(onPressed: (){
+                obsecure = !obsecure;
+                setState(() {
+                });
+              },icon: Icon(obsecure?Icons.visibility_off:Icons.visibility),),
             ),
             SizedBox(height: height * 0.025,),
             CustomTextField(
+              obscureText: obsecure,
               hintText: 'Confirm Password',
               hintStyle: AppStyles.normal16white,
               style: AppStyles.normal16white,
               prefixIcon: ImageIcon(AssetImage(AppAssets.passwordIcon)),
-              suffixIcon: ImageIcon(AssetImage(AppAssets.showPasswordIcon)),
+              suffixIcon: IconButton(onPressed: (){
+                obsecure = !obsecure;
+                setState(() {
+                });
+              },icon: Icon(obsecure?Icons.visibility_off:Icons.visibility),),
             ),
             SizedBox(height: height * 0.025,),
             CustomTextField(
+
               hintText: 'Phone Number',
               style: AppStyles.normal16white,
               hintStyle: AppStyles.normal16white,
@@ -95,6 +113,7 @@ class RegisterScreenView extends StatelessWidget {
             InkWell(
               onTap: () {
                 // todo : Navigate To Login Screen -> PushReplacementNamed
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
               },
               child: Text.rich(
                   textAlign: TextAlign.center,
