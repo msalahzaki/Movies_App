@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/cubit/language_states.dart';
 import 'package:movies_app/ui/login/login_screen.dart';
+import 'package:movies_app/ui/onBoarding/onBoarding_screen.dart';
+import 'package:movies_app/ui/onBoarding/start_screen.dart';
 import 'cubit/language_cubit.dart';
 import 'package:movies_app/home.dart';
 import 'utils/BlocObserver.dart';
@@ -41,10 +43,11 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           themeMode: ThemeMode.dark,
           locale: Locale(locale),
-          initialRoute: LoginScreen.loginScreenId,
-
+          initialRoute: StartScreen.routeName,
           routes: {
-            Home.homeScreenId: (context) => const Home(),
+            StartScreen.routeName: (context) => StartScreen(),
+            OnboardingScreen.routeName: (context) => OnboardingScreen(),
+            Home.homeScreenId: (context) => Home(),
             LoginScreen.loginScreenId: (context) => LoginScreen(),
           },
 
