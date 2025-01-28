@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:movies_app/register_screen_view/register_screen_view.dart';
 import 'home.dart';
 import 'utils/BlocObserver.dart';
 import 'utils/app_theme.dart';
@@ -19,11 +19,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-
       darkTheme: AppTheme.darkTheme,
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.dark,
-      home: const Home(),
-      );
+      home: RegisterScreenView(),
+    );
   }
 }
