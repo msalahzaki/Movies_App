@@ -11,7 +11,7 @@ class CustomElevatedButton extends StatelessWidget {
   Function onButtonClicked;
   MainAxisAlignment? mainAxisAlignment;
   CrossAxisAlignment? crossAxisAlignment;
-  CustomElevatedButton({required this.onButtonClicked, this.borderColor, this.textStyle, this.crossAxisAlignment, this.mainAxisAlignment, this.buttonText, this.backgroundColor, this.prefixIconButton});
+  CustomElevatedButton({super.key, required this.onButtonClicked, this.borderColor, this.textStyle, this.crossAxisAlignment, this.mainAxisAlignment, this.buttonText, this.backgroundColor, this.prefixIconButton});
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -37,7 +37,7 @@ class CustomElevatedButton extends StatelessWidget {
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
           children: [
-            prefixIconButton ?? SizedBox(),
+            prefixIconButton ?? const SizedBox(),
             SizedBox(width: width * 0.025,),
             Text(buttonText??'',style: textStyle ?? AppStyles.normal20white,),
           ],

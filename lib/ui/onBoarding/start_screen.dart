@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/ui/onBoarding/onBoarding_screen.dart';
-import 'package:movies_app/ui/widget/custom_elevated_button.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_styles.dart';
+import 'package:movies_app/utils/custom_elevated_button.dart';
 
 class StartScreen extends StatelessWidget {
   static const String routeName = 'start';
+
+  const StartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class StartScreen extends StatelessWidget {
           Positioned(
             bottom: height * 0.03,
             child: Column(
-              spacing: height * 0.02,
+
               children: [
                 Text(
                   '     Find Your Next \nFavorite Movie Here',
@@ -42,7 +44,7 @@ class StartScreen extends StatelessWidget {
                   style: AppStyles.light20semiWhite,
                 ),
                 CustomElevatedButton(
-                    text: 'Explore Now',
+                    buttonText: 'Explore Now',
                     textStyle: AppStyles.medium20Black,
                     onButtonClicked: () {
                       Navigator.of(context)

@@ -18,7 +18,7 @@ class CustomTextField extends StatelessWidget {
   Widget? suffixIcon;
   bool obscureText;
   TextInputType keyboardType ;
-  CustomTextField({this.borderColor = AppColor.gray, required this.hintText,
+  CustomTextField({super.key, this.borderColor = AppColor.gray, required this.hintText,
     this.labelText, this.hintStyle, this.prefixIcon, this.suffixIcon, this.labelStyle,
   this.style, this.obscureText = false, this.maxLines, this.validator,
     this.controller, this.keyboardType = TextInputType.text});
@@ -48,14 +48,14 @@ class CustomTextField extends StatelessWidget {
         ),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
                 color: AppColor.red,
                 width: 2
             )
         ),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
                 color: AppColor.red,
                 width: 2
             )

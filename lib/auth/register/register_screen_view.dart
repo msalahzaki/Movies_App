@@ -48,8 +48,8 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                   enlargeCenterPage: true,
                   enlargeFactor: 0.4,
                   autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 3),
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
                   autoPlayCurve: Curves.fastOutSlowIn,
                 )
             ),
@@ -113,7 +113,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
             InkWell(
               onTap: () {
                 // todo : Navigate To Login Screen -> PushReplacementNamed
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen(),));
               },
               child: Text.rich(
                   textAlign: TextAlign.center,

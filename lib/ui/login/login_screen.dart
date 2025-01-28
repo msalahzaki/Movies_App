@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Center(
                 child: InkWell(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreenView(),));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterScreenView(),));
                   },
                   child: Text.rich(TextSpan(children: <InlineSpan>[
                     TextSpan(

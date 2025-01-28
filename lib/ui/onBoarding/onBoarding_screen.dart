@@ -1,14 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/model/onboarding_model.dart';
-import 'package:movies_app/ui/widget/custom_elevated_button.dart';
+
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
+import 'package:movies_app/utils/custom_elevated_button.dart';
 
 import '../login/login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static const String routeName = 'onBoarding';
+
+  const OnboardingScreen({super.key});
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -79,7 +82,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: height * 0.02,
                       ),
                       CustomElevatedButton(
-                          text: currentIndex == onboardingList.length - 1
+                          buttonText: currentIndex == onboardingList.length - 1
                               ? 'Finish'
                               : 'Next',
                           textStyle: AppStyles.medium20Black,
@@ -99,7 +102,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       currentIndex != 0
                           ? CustomElevatedButton(
-                              text: 'Back',
+                          buttonText: 'Back',
                               textStyle: AppStyles.medium20Orange,
                               backgroundColor: AppColor.black,
                               onButtonClicked: () {
@@ -109,7 +112,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   setState(() {});
                                 }
                               })
-                          : SizedBox()
+                          : const SizedBox()
                     ],
                   ),
                 ))
