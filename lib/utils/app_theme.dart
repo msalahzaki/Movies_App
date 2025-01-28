@@ -41,6 +41,6 @@ class AppTheme {
   static OutlineInputBorder textInputBorder() {
     return OutlineInputBorder(
         borderRadius: BorderRadius.circular(15),
-        borderSide: BorderSide());
+        borderSide: const BorderSide());
   }
 }
