@@ -10,4 +10,5 @@ class AppColor {
   static const Color white = Color(0xffffffff);
   static const Color gray = Color(0xff7B7B7B);
   static const Color transparent = Colors.transparent;
+  static const Color semiWhite = Color.fromRGBO(255, 255, 255, 0.6);
 }
