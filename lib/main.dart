@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/cubit/language_states.dart';
 import 'package:movies_app/ui/login/login_screen.dart';
 import 'cubit/language_cubit.dart';
-import 'home.dart';
+import 'package:movies_app/home.dart';
 import 'utils/BlocObserver.dart';
 import 'utils/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<LanguageCubit, LanguageStates>(
       builder:(context, state) {
         String locale ;
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
           },
         );
       },
+
     );
   }
 }

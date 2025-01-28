@@ -44,6 +44,7 @@ class AppAssets {
   static String userIcon = "assets/icons/userIcon.png";
   static String watchListIcon = "assets/icons/watchListIcon.png";
   static String playIcon = "assets/icons/playIcon.png";
+  static String showPasswordIcon = 'assets/icons/showPasswordIcon.png';
 
   List<String> avatarsImages = [
     "assets/images/avatar1.png",

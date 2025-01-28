@@ -38,9 +38,13 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_native_splash: ^2.4.4
   flutter_bloc: ^9.0.0
+
+  carousel_slider: ^5.0.0
+
   flutter_localizations:
     sdk: flutter
   intl: any
+
 
 dev_dependencies:
   flutter_test:
