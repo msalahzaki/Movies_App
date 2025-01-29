@@ -22,29 +22,32 @@ class _LanguageWidgetState extends State<LanguageWidget> {
 
 
     size = MediaQuery.of(context).size;
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(color: AppColor.orange, width: 2)),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          InkWell(
-              onTap: () {
-                context.read<LanguageCubit>().changeLanguage(language: "en");
-                setState(() {});
-              },
-              child: languageOption(AppAssets.usIcon, "en")),
-          const SizedBox(
-            width: 15,
-          ),
-          InkWell(
-              onTap: () {
-                context.read<LanguageCubit>().changeLanguage(language: "ar");
-                setState(() {});
-              },
-              child: languageOption(AppAssets.egIcon, "ar")),
-        ],
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Container(
+           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(color: AppColor.orange, width: 2)),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InkWell(
+                onTap: () {
+                  context.read<LanguageCubit>().changeLanguage(language: "en");
+                  setState(() {});
+                },
+                child: languageOption(AppAssets.usIcon, "en")),
+            const SizedBox(
+              width: 15,
+            ),
+            InkWell(
+                onTap: () {
+                  context.read<LanguageCubit>().changeLanguage(language: "ar");
+                  setState(() {});
+                },
+                child: languageOption(AppAssets.egIcon, "ar")),
+          ],
+        ),
       ),
     );
   }
