@@ -24,6 +24,10 @@ class AppAssets {
   static String avatar8 = "assets/images/avatar8.png";
   static String avatar9 = "assets/images/avatar9.png";
 
+  static String availableNow = "assets/images/availableNow.png";
+  static String watchNow = "assets/images/watchNow.png";
+
+
   /// icons
   static String bookmarkIcon = "assets/icons/bookmarkIcon.png";
   static String egIcon = "assets/icons/egIcon.png";
