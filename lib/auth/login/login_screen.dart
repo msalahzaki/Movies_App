@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/auth/forget_Password/forget_Password.dart';
 import 'package:movies_app/auth/register/register_screen_view.dart';
 import 'package:movies_app/home.dart';
 import 'package:movies_app/utils/app_assets.dart';
@@ -65,9 +66,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.centerRight,
                 child: Padding(
                   padding: EdgeInsets.only(right: width * 0.02),
-                  child: Text(
-                    "Forget Password ?",
-                    style: AppStyles.normal14primary,
+                  child: InkWell(onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ForgetPassword(),));
+                  },
+                    child: Text(
+                      "Forget Password ?",
+                      style: AppStyles.normal14primary,
+                    ),
                   ),
                 ),
               ),
