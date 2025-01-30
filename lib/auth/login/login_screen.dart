@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/auth/forget_Password/forget_Password.dart';
 import 'package:movies_app/auth/register/register_screen_view.dart';
+import 'package:movies_app/home.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
@@ -173,12 +174,13 @@ class Custom_Elevated_Button_login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15)),
             backgroundColor: AppColor.orange),
         onPressed: () {
-          //  Navigator.pushReplacementNamed(context, Home.homeScreenId);
+         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home(),));
         },
         child: Center(
             child: Padding(

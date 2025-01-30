@@ -34,6 +34,13 @@ class AppTheme {
       focusedBorder: textInputBorder(),
       enabledBorder: textInputBorder(),
       ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: AppColor.semiBlack,
+      selectedItemColor: AppColor.orange,
+      showSelectedLabels:false,
+      showUnselectedLabels:false,
+      unselectedItemColor: AppColor.white
+    )
       );
 
 
