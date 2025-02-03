@@ -185,6 +185,5 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
       },
     );
   }
-
 }
 
