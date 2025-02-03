@@ -9,7 +9,7 @@ class UpdateProfileViewmodel extends Cubit<UpdateProfileStates> {
 
   final formKey = GlobalKey<FormState>();
   late int profileAvatar;
-  String stoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTAwM2U1MmRiNDBjYTQwNTYwYWNmZCIsImVtYWlsIjoieW91c3NlZjIyQGdtYWlsLmNvbSIsImlhdCI6MTczODU0MDAzNn0._1yES6bMpbrosBAIUuQVrCN2ZLkg4_Yehe6k0Koq4co";
+  String stoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTBmMmQzNGRiMzc5Yjg1MzMwN2Q5YiIsImVtYWlsIjoibWVsYXJhYnkxQGdtYWlsLmNvbSIsImlhdCI6MTczODYwMTQ1NX0.IA_YTFy4uoDYP6OWhy4AGAJ8xDQHxYphxAJXCFnxh4E";
 
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController phoneEditingController = TextEditingController();

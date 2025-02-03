@@ -72,7 +72,7 @@ class ApiManger {
     } catch (e) {
       return ("Error: $e");
     }
-    
+  }
       static Future<int> registerUser({required String name, required String email, required String password,
     required String confirmPassword, required String phone, required int avatarId}) async {
     try {

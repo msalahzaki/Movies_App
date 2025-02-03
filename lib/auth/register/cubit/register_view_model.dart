@@ -94,12 +94,19 @@ class RegisterViewModel extends Cubit<RegisterState>{
   }
 
   String? validPhoneNumber(String? text){
-    if(text == null || text.trim().isEmpty){
-      return 'Please Enter Phone Number';
+    if (text == null || text.isEmpty) {
+      return 'Please enter a phone number';
     }
-    if(text.codeUnitAt(0) != 43){
-      return 'number should start with (+) then the country code';
+
+    // Check if it starts with "+2"
+    if (!text.startsWith('+2')) {
+      return 'Phone number must start with +2';
     }
+
+    if (text.substring(2) .length != 11 ) {
+      return 'The Phone must be 11 numbers';
+    }
+
     return null;
   }
   void changePasswordIcon(){
