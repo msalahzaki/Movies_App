@@ -72,31 +72,6 @@ class ApiManger {
     } catch (e) {
       return ("Error: $e");
     }
-    
-      static Future<int> registerUser({required String name, required String email, required String password,
-    required String confirmPassword, required String phone, required int avatarId}) async {
-    try {
-
-      Map<String, dynamic> data = {
-        "name": name,
-        "email": email,
-        "password": password,
-        "confirmPassword": confirmPassword,
-        "phone": phone,
-        "avaterId": avatarId,
-      };
-      final response = await http.post(
-        Uri.https(ApiConst.baseAuthURL,EndPoints.register),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(data),
-      );
-      return response.statusCode;
-    } catch (e) {
-      print("Exception: $e");
-      return -1;
-    }
 
   }
-
-
-}
+  }
