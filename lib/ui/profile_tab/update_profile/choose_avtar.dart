@@ -5,7 +5,7 @@ import 'package:movies_app/ui/profile_tab/update_profile/cubit/update_profile_vi
 import '../../../utils/app_color.dart';
 
 class ChooseAvatar extends StatelessWidget {
-   const ChooseAvatar(this.viewmodel,
+  const ChooseAvatar(this.viewmodel,
       {super.key});
   final UpdateProfileViewmodel viewmodel ;
   @override
@@ -35,11 +35,11 @@ class ChooseAvatar extends StatelessWidget {
               String imagePath = "assets/images/avatar${index + 1}.png";
               return InkWell(
                 onTap: () {
-                  viewmodel.changeAvatar(imagePath);
+                  viewmodel.changeAvatar(index+1);
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: viewmodel.profileAvatar == imagePath
+                    color: viewmodel.profileAvatar == index +1
                         ? AppColor.orange.withOpacity(.5)
                         : AppColor.transparent,
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
