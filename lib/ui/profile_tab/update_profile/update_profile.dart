@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/auth/login/login_screen.dart';
+import 'package:movies_app/ui/profile_tab/cubit/profile_tab_viewModel.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/choose_avtar.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/update_profile_states.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/update_profile_viewmodel.dart';
@@ -13,8 +14,9 @@ import 'package:movies_app/utils/custom_dailog.dart';
 class UpdateProfile extends StatelessWidget {
 
 
-  const UpdateProfile({super.key});
-  @override
+  const UpdateProfile( {super.key});
+
+    @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     late UpdateProfileViewmodel viewmodel;
@@ -23,7 +25,7 @@ class UpdateProfile extends StatelessWidget {
         title: const Text("Update Profile"),
       ),
       body: BlocProvider(
-        create:(context) => UpdateProfileViewmodel()..getProfile(),
+        create:(context) => UpdateProfileViewmodel(),
         child: BlocConsumer<UpdateProfileViewmodel,UpdateProfileStates>(
           listener: (context, state) {
             if (state is UpdateProfileChangeAvatarState){
@@ -54,13 +56,8 @@ class UpdateProfile extends StatelessWidget {
 
           builder: (context, state) {
             viewmodel = context.read<UpdateProfileViewmodel>();
-            if (state is GetProfileLoadingState){
-              return const Center(child: CircularProgressIndicator(),);
-            }
-            if (state is GetProfileErrorState){
-              return Center(child: Text(state.errorMessage,style: AppStyles.normal20primary,));
-            }
-            else{
+            viewmodel.profileTabViewmodel = BlocProvider.of<ProfileTabViewmodel>(context);
+               viewmodel.initProfileData();
               return  Form(
                 key: viewmodel.formKey,
                 child: Padding(
@@ -143,7 +140,7 @@ class UpdateProfile extends StatelessWidget {
                   ),
                 ),
               );
-            }
+
           },
 
         ),
