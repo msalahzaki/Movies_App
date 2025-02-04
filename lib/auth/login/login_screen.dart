@@ -121,9 +121,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   builder: (context) => const ForgetPassword(),
                                 ));
                               },
-                              child: Text(
-                                "Forget Password ?",
-                                style: AppStyles.normal14primary,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, ForgetPassword.routeName);
+                                },
+                                child: Text(
+                                  "Forget Password ?",
+                                  style: AppStyles.normal14primary,
+                                ),
                               ),
                             ),
                           ),
