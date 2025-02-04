@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/ui/profile_tab/cubit/profile_tab_states.dart';
+import 'package:movies_app/ui/profile_tab/cubit/profile_tab_viewModel.dart';
+import 'package:movies_app/ui/profile_tab/history_tab/history_tab.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/update_profile.dart';
+import 'package:movies_app/ui/profile_tab/watchList_tab/watchList_tab.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
@@ -9,58 +14,60 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return Scaffold(
+    ProfileTabViewmodel profileTabViewModel =
+    BlocProvider.of<ProfileTabViewmodel>(context);
+    return Scaffold(backgroundColor: AppColor.semiBlack,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: height * .03,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        maxRadius: 50,
-                        child: Image.asset(AppAssets.avatar2),
-                      ),
-                      Text(
-                        "Mohamed Salah",
-                        style: AppStyles.bold20white,
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "12 \n",
-                        style: AppStyles.bold24white,
-                      ),
-                      Text(
-                        "Wish List",
-                        style: AppStyles.bold24white,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "10 \n",
-                        style: AppStyles.bold24white,
-                      ),
-                      Text(
-                        "History",
-                        style: AppStyles.bold24white,
-                      ),
-                    ],
-                  )
-                ],
-              ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: height * .03,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                BlocBuilder<ProfileTabViewmodel, ProfileTabStates>(
+                  bloc: profileTabViewModel..getProfile(),
+                  builder: (context, state) {
+                    if (state is GetProfileSussesState) {
+                      return Column(
+                        children: [
+                          CircleAvatar(
+                            maxRadius: 50,
+                            child: Image.asset(
+                              AppAssets.avatarImages[
+                              (state.userProfile.data!.avaterId ?? 1) -
+                                  1],
+                            ),
+                          ),
+                          SizedBox(
+                            width: width * .4,
+                            child: Text(
+                              state.userProfile.data?.name ?? "",
+                              style: AppStyles.bold20white,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                        ],
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
+                Text(textAlign: TextAlign.center,
+                  "12 \n Wish List",
+                  style: AppStyles.bold24white,
+                ),
+                Text( textAlign: TextAlign.center,
+                  "10 \n History",
+                  style: AppStyles.bold24white,
+                )
+              ],
+            ),
               SizedBox(
                 height: height * .03,
               ),
@@ -70,7 +77,7 @@ class ProfileTab extends StatelessWidget {
                     flex: 2,
                     child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpdateProfile(),));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UpdateProfile(),));
                         },
                         child: Text(
                           "Edit Profile",
@@ -93,39 +100,29 @@ class ProfileTab extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: height * .03,
-              ),
+
               DefaultTabController(
                   length: 2,
-                  child: TabBar(dividerColor: AppColor.transparent,
-                      indicatorColor: AppColor.orange,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      tabs: [
-                        Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset(AppAssets.watchListIcon),
-                            Text(
-                              "Watch List",
-                              style: AppStyles.normal20white,
-                            )
-                          ],
-                        ),
-                        Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset(AppAssets.historyIcon),
-                            Text(
-                              "History",
-                              style: AppStyles.normal20white,
-                            )
-                          ],
-                        ),
-                      ])),
+                  child: TabBar(
+                    tabs: [
+                      Tab(
+                        iconMargin: const EdgeInsets.all(8),
+                        icon: Image.asset(AppAssets.watchListIcon),
+                        text: "Watch List",
+                      ),
+                      Tab(
+                        iconMargin: const EdgeInsets.all(8),
+                        icon: Image.asset(AppAssets.historyIcon),
+                        text: "History",
+                      ),
+                    ],
+                  )
+              ),
 
             ],
           ),
         ),
-      ),
     );
+
   }
 }

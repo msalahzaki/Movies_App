@@ -40,6 +40,13 @@ class AppTheme {
       showSelectedLabels:false,
       showUnselectedLabels:false,
       unselectedItemColor: AppColor.white
+    ),
+    tabBarTheme:  TabBarTheme(
+      labelStyle:AppStyles.bold16white,
+      unselectedLabelStyle: AppStyles.normal16white,
+      dividerColor: AppColor.transparent,
+      indicatorColor: AppColor.orange,
+      indicatorSize: TabBarIndicatorSize.tab,
     )
       );
 
