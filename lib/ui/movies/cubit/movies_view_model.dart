@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/api/api_manger.dart';
+
 import 'package:movies_app/ui/movies/cubit/movies_states.dart';
 
 class MoviesViewModel extends Cubit<MoviesStates> {
@@ -10,7 +11,7 @@ class MoviesViewModel extends Cubit<MoviesStates> {
   void getMovies() async {
     try {
       emit(MoviesLoadingState());
-      var response = await ApiManager.getMovies();
+      var response = await ApiManger.getMovies();
       if (response.status == 'error') {
         emit(MoviesErrorState(errorMessage: response.statusMessage!));
         return;

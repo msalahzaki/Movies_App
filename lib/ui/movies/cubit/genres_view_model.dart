@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/api/api_manger.dart';
+
 import 'package:movies_app/model/genres_model.dart';
 import 'package:movies_app/ui/movies/cubit/genres_states.dart';
 
@@ -16,7 +17,7 @@ class GenresViewModel extends Cubit<GenresStates> {
     genre = GenresModel.genresList[Random().nextInt(24)];
     try {
       emit(GenresLoadingState());
-      var response = await ApiManager.getMoviesByGenre(genre);
+      var response = await ApiManger.getMoviesByGenre(genre);
       if (response.status == 'error') {
         emit(GenresErrorState(errorMessage: response.statusMessage!));
         return;
