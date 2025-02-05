@@ -5,7 +5,10 @@ import 'package:movies_app/ui/profile_tab/cubit/profile_tab_viewModel.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/choose_avtar.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/update_profile_states.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/update_profile_viewmodel.dart';
+import 'package:movies_app/ui/profile_tab/update_profile/resetPassword/reset_Password.dart';
+
 import 'package:movies_app/ui/profile_tab/update_profile/delete_profile.dart';
+
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
@@ -65,6 +68,12 @@ class UpdateProfile extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, ResetPassword.routeName);
+                        },
+
                       IconButton(
                         onPressed: () {
                           showModalBottomSheet(
@@ -121,6 +130,7 @@ class UpdateProfile extends StatelessWidget {
                           ConfirmDeleteDialog.show(context, viewmodel);
                         },
                         style: ElevatedButton.styleFrom(backgroundColor: AppColor.red),
+
                         child: Text(
                           "Delete Account",
                           style: AppStyles.normal20white,

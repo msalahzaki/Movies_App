@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Padding(
                   padding: EdgeInsets.only(right: width * 0.02),
                   child: InkWell(onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ForgetPassword(),));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  ForgetPassword(),));
                   },
                     child: Text(
                       "Forget Password ?",
