@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/auth/forget_Password/forget_Password.dart';
 import 'package:movies_app/auth/login/login_screen.dart';
 import 'package:movies_app/cubit/language_states.dart';
 import 'package:movies_app/ui/Splash/splash_Screen.dart';
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           themeMode: ThemeMode.dark,
           locale: Locale(locale),
-          initialRoute: StartScreen.routeName,
+          // initialRoute: StartScreen.routeName,
+          home: ForgetPassword(),
 
           routes: {
             SplashScreen.routeName: (context) => SplashScreen(),
