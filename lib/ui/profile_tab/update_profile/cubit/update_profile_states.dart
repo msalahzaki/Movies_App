@@ -1,14 +1,38 @@
-abstract class UpdateProfileStates {}
-class UpdateProfileLoadingState extends UpdateProfileStates{}
+import 'package:movies_app/model/user_profile.dart';
 
-class UpdateProfileErrorState extends UpdateProfileStates{}
+abstract class UpdateProfileStates {}
+
+
+class GetProfileLoadingState extends UpdateProfileStates{}
+class GetProfileErrorState extends UpdateProfileStates{
+  String errorMessage ;
+  GetProfileErrorState(this.errorMessage);
+}
+class GetProfileSussesState extends UpdateProfileStates{
+  UserProfile userProfile ;
+
+  GetProfileSussesState(this.userProfile);
+}
 
 class UpdateProfileSussesState extends UpdateProfileStates{}
+class UpdateProfileErrorState extends UpdateProfileStates{
+  String errorMassage;
 
-class GetProfileSussesState extends UpdateProfileStates{}
+  UpdateProfileErrorState(this.errorMassage);
+}
+class UpdateProfileLoadingState extends UpdateProfileStates{}
 
-class UpdateProfileShowModalSheetState extends UpdateProfileStates{}
+class DeleteProfileConfirmState extends UpdateProfileStates{}
+class DeleteProfileSuccessState extends UpdateProfileStates{}
+class DeleteProfileErrorState extends UpdateProfileStates{
+  String errorMassage;
 
-class UpdateProfileHideModalSheetState extends UpdateProfileStates{}
+  DeleteProfileErrorState(this.errorMassage);
+}
+
+
+
+
+class UpdateProfileChangeAvatarState extends UpdateProfileStates{}
 
 
