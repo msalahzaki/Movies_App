@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/reset_password_state.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/reset_view_model.dart';
+import 'package:movies_app/utils/app_styles.dart';
 
 import '../../../../utils/app_assets.dart';
 import '../../../../utils/app_color.dart';
@@ -44,6 +45,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 key: formKey,
                 child: Column(
                   children: [
+                    Image.asset("assets/images/forgotPassword.png"),
                     TextFormField(
                       controller: oldPasswordController,
                       obscureText: obsecure,
@@ -159,7 +161,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                             },
                       child: state is ResetPasswordLoading
                           ? const CircularProgressIndicator()
-                          : const Text('Reset Password'),
+                          :  Text('Reset Password',style: AppStyles.normal16black,),
                     ),
                   ],
                 ),
