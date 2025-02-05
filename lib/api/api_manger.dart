@@ -3,7 +3,32 @@ import 'package:movies_app/api/api_const.dart';
 import 'package:movies_app/api/end_points.dart';
 import 'package:http/http.dart' as http;
 import 'package:movies_app/model/user_profile.dart';
+import '../model/MoviesResponse.dart';
+
+
+
 class ApiManger {
+
+   static const String url = "https://yts.mx/api/v2/list_movies.json";
+
+  static Future<MoviesResponse> getMovies() async {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return MoviesResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception;
+    }
+  }
+
+  static Future<MoviesResponse> getMoviesByGenre(String genre) async {
+    final response = await http
+        .get(Uri.parse(url).replace(queryParameters: {'genre': genre}));
+    if (response.statusCode == 200) {
+      return MoviesResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception;
+    }
+  }
 
   static Future<UserProfile?> getProfileData(String token) async {
     Uri url = Uri.https(ApiConst.baseAuthURL, EndPoints.profile);
@@ -100,3 +125,4 @@ class ApiManger {
 
 
 }
+

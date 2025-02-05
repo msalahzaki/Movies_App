@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/app_color.dart';
+import 'package:movies_app/utils/app_styles.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   Color? backgroundColor;
@@ -29,8 +29,7 @@ class CustomElevatedButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               side: BorderSide(
-                color: borderColor ?? AppColor.orange
-              )
+                    color: borderColor ?? AppColor.orange, width: 2)
             )
         ),
         child: Row(

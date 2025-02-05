@@ -33,23 +33,31 @@ class StartScreen extends StatelessWidget {
           Positioned(
             bottom: height * 0.03,
             child: Column(
-
               children: [
                 Text(
                   '     Find Your Next \nFavorite Movie Here',
                   style: AppStyles.normal36white,
                 ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
                 Text(
                   'Get access to a huge library of movies \nto suit all tastes. You will surely like it.',
                   style: AppStyles.light20semiWhite,
                 ),
-                CustomElevatedButton(
-                    buttonText: 'Explore Now',
-                    textStyle: AppStyles.medium20Black,
-                    onButtonClicked: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(OnboardingScreen.routeName);
-                    })
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                SizedBox(
+                  width: width * 0.9,
+                  child: CustomElevatedButton(
+                      buttonText: 'Explore Now',
+                      textStyle: AppStyles.medium20Black,
+                      onButtonClicked: () {
+                        Navigator.of(context)
+                            .pushReplacementNamed(OnboardingScreen.routeName);
+                      }),
+                )
               ],
             ),
           )

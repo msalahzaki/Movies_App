@@ -26,7 +26,7 @@ class AppAssets {
 
   static String availableNow = "assets/images/availableNow.png";
   static String watchNow = "assets/images/watchNow.png";
-
+  static String errorImage = 'assets/images/error_image.jpg';
 
   /// icons
   static String bookmarkIcon = "assets/icons/bookmarkIcon.png";
