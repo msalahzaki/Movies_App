@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/choose_avtar.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/update_profile_states.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/update_profile_viewmodel.dart';
+import 'package:movies_app/ui/profile_tab/update_profile/resetPassword/reset_Password.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
@@ -73,7 +74,9 @@ class UpdateProfile extends StatelessWidget {
                   Row(
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, ResetPassword.routeName);
+                        },
                         child: Text(
                           "Reset Password",
                           style: AppStyles.normal20white,
