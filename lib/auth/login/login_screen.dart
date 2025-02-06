@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/auth/forget_Password/forget_Password.dart';
+import 'package:movies_app/auth/login/Custom_elevated_Button_login.dart';
+import 'package:movies_app/auth/login/cubit/login_states.dart';
+import 'package:movies_app/auth/login/cubit/login_view_model.dart';
 import 'package:movies_app/auth/register/register_screen_view.dart';
 import 'package:movies_app/home.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
+import 'package:movies_app/utils/dailog_utilis.dart';
 
 import '../../auth/widget/language_widget.dart';
-
-
 
 class LoginScreen extends StatefulWidget {
   static const String loginScreenId = "LoginScreen";
@@ -19,189 +22,193 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool obsecure = true ;
+  LoginViewModel loginViewModel = LoginViewModel();
+  bool obsecure = true;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Image.asset(
-                AppAssets.logo,
-                width: double.infinity,
-                height: height * .27,
-              ),
-              TextFormField(
-                style: AppStyles.normal20white,
-                decoration: InputDecoration(
-                hintText: "Email",
-                prefixIcon: Image.asset(AppAssets.emailIcon),
-                )
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-             TextFormField(
-               style: AppStyles.normal20white,
-                 obscureText: obsecure,
-                 decoration: InputDecoration(
-                 suffixIcon: IconButton(onPressed: (){
-                   obsecure = !obsecure;
-                   setState(() {
-                   });
-                 },icon: Icon(obsecure?Icons.visibility_off:Icons.visibility),),
-                 prefixIcon: Image.asset(AppAssets.passwordIcon),
-                 hintText: "Password",
-               ),
-                ),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
+    return BlocProvider.value(
+      value: loginViewModel,
+      child: BlocListener<LoginViewModel, LoginStates>(
+          listener: (context, state) {
+            if (state is FailureLoginState) {
+              DailogUtilis.hideLoading(context: context);
+              DailogUtilis.showMessage(
+                  title: 'Error', context: context, message: state.message,postActionname: "OK",postActionFunc: Navigator.pop);
+            } else if (state is SucessLoginState) {
+              DailogUtilis.hideLoading(context: context);
+              DailogUtilis.showMessage(
+                  context: context,
+                  message: state.message,
+                  title: 'Sucess',
+                  postActionname: "ok",
+                  postActionFunc: () {
+                    loginViewModel.goToHome(context);
+                  });
+              // TODO: Navigate to home screen
+            } else if (state is LoadingLoginState) {
+              DailogUtilis.showLoading(context: context, message: "Loading...");
+            }
+          },
+          child: Scaffold(
+            body: Form(
+              key: loginViewModel.formkey,
+              child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.only(right: width * 0.02),
-                  child: InkWell(onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  ForgetPassword(),));
-                  },
-                    child: Text(
-                      "Forget Password ?",
-                      style: AppStyles.normal14primary,
-                    ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image.asset(
+                        AppAssets.logo,
+                        width: double.infinity,
+                        height: height * .27,
+                      ),
+                      TextFormField(
+                          controller: loginViewModel.emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email is required';
+                            }
+
+                            return null;
+                          },
+                          style: AppStyles.normal20white,
+                          decoration: InputDecoration(
+                            hintText: "Email",
+                            prefixIcon: Image.asset(AppAssets.emailIcon),
+                          )),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      TextFormField(
+                        controller: loginViewModel.passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'passsword is required';
+                          }
+
+                          return null;
+                        },
+                        style: AppStyles.normal20white,
+                        obscureText: obsecure,
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              obsecure = !obsecure;
+                              setState(() {});
+                            },
+                            icon: Icon(obsecure
+                                ? Icons.visibility_off
+                                : Icons.visibility),
+                          ),
+                          prefixIcon: Image.asset(AppAssets.passwordIcon),
+                          hintText: "Password",
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.01,
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child :InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgetPassword(),));
+                            },
+                            child: Text(
+                              "Forget Password ?",
+                              style: AppStyles.normal14primary,
+                            ),
+                          ),
+                        ),
+
+                      SizedBox(
+                        height: height * 0.03,
+                      ),
+                      Custom_Elevated_Button_login(
+                          ontab: () {
+                            loginViewModel.login();
+                          },
+                          style: AppStyles.normal20black,
+                          text: "Login",
+                          width: width,
+                          height: height),
+                      SizedBox(
+                        height: height * 0.02,
+                      ),
+                      Center(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegisterScreenView(),
+                                ));
+                          },
+                          child: Text.rich(TextSpan(children: <InlineSpan>[
+                            TextSpan(
+                              text: 'Don’t Have Account ? ',
+                              style: AppStyles.normal14white,
+                            ),
+                            TextSpan(
+                              text: 'Create One',
+                              style: AppStyles.normal14primary,
+                            )
+                          ])),
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.03,
+                      ),
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: Divider(
+                              indent: 90,
+                              endIndent: 10,
+                              thickness: 1,
+                              color: AppColor.orange,
+                            ),
+                          ),
+                          Text(
+                            "OR",
+                            style: AppStyles.normal14primary,
+                          ),
+                          const Expanded(
+                            child: Divider(
+                              indent: 10,
+                              endIndent: 90,
+                              thickness: 1,
+                              color: AppColor.orange,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.03,
+                      ),
+                      Custom_Elevated_Button_login(
+                          ontab: () {
+                            loginViewModel.login();
+                          },
+                          isIcon: true,
+                          icon: AppAssets.googleIcon,
+                          style: AppStyles.normal16black,
+                          text: "Login with google",
+                          width: width,
+                          height: height),
+                      SizedBox(
+                        height: height * 0.03,
+                      ),
+                      const Center(child: LanguageWidget())
+                    ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              Custom_Elevated_Button_login(
-                  style: AppStyles.normal20black,
-                  text: "Login",
-                  width: width,
-                  height: height),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Center(
-                child: InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterScreenView(),));
-                  },
-                  child: Text.rich(TextSpan(children: <InlineSpan>[
-                    TextSpan(
-                      text: 'Don’t Have Account ? ',
-                      style: AppStyles.normal14white,
-                    ),
-                    TextSpan(
-                      text: 'Create One',
-                      style: AppStyles.normal14primary,
-                    )
-                  ])),
-                ),
-              ),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              Row(
-                children: [
-                  const Expanded(
-                    child: Divider(
-                      indent: 90,
-                      endIndent: 10,
-                      thickness: 1,
-                      color: AppColor.orange,
-                    ),
-                  ),
-                  Text(
-                    "OR",
-                    style: AppStyles.normal14primary,
-                  ),
-                  const Expanded(
-                    child: Divider(
-                      indent: 10,
-                      endIndent: 90,
-                      thickness: 1,
-                      color: AppColor.orange,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              Custom_Elevated_Button_login(
-                  isIcon: true,
-                  icon: AppAssets.googleIcon,
-                  style: AppStyles.normal16black,
-                  text: "Login With Google",
-                  width: width,
-                  height: height),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              const Center(child: LanguageWidget())
-            ],
-          ),
-        ),
-      ),
+            ),
+          )),
     );
   }
 }
-
-class Custom_Elevated_Button_login extends StatelessWidget {
-  final bool isIcon;
-  final String text;
-  final String? icon;
-  final TextStyle? style;
-  const Custom_Elevated_Button_login({
-    this.isIcon = false,
-    this.style,
-    required this.text,
-    this.icon,
-    super.key,
-    required this.width,
-    required this.height,
-  });
-
-  final double width;
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-
-        style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)),
-            backgroundColor: AppColor.orange),
-        onPressed: () {
-         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home(),));
-        },
-        child: Center(
-            child: Padding(
-          padding: EdgeInsets.symmetric(vertical: height * 0.001),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              isIcon ? Image.asset(icon!) : const SizedBox.shrink(),
-              isIcon
-                  ? SizedBox(
-                      width: width * 0.02,
-                    )
-                  : const SizedBox.shrink(),
-              Text(
-                text,
-                style: style,
-              ),
-            ],
-          ),
-        )));
-  }
-}
-
-

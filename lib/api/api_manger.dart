@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:movies_app/api/api_const.dart';
 import 'package:movies_app/api/end_points.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_app/model/user_model.dart';
 import 'package:movies_app/model/user_profile.dart';
 import '../model/MoviesResponse.dart';
 
@@ -10,7 +11,22 @@ import '../model/MoviesResponse.dart';
 
 class ApiManger {
 
-   static const String url = "https://yts.mx/api/v2/list_movies.json";
+  static const String url = "https://yts.mx/api/v2/list_movies.json";
+
+  static Future<UserModel?> loginApi(String email, String password) async {
+    Uri url = Uri.https(
+      ApiConst.baseAuthURL,
+      EndPoints.login,
+    );
+    var response = await http.post(
+      url,
+      body: {"email": email, "password": password},
+    );
+      var jsonData = jsonDecode(response.body);
+      return UserModel.fromJson(jsonData);
+  }
+
+
 
   static Future<MoviesResponse> getMovies() async {
     final response = await http.get(Uri.parse(url));
@@ -99,7 +115,7 @@ class ApiManger {
       return ("Error: $e");
     }
   }
-      static Future<int> registerUser({required String name, required String email, required String password,
+  static Future<int> registerUser({required String name, required String email, required String password,
     required String confirmPassword, required String phone, required int avatarId}) async {
     try {
 
