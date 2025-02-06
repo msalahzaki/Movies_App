@@ -1,12 +1,28 @@
-class UserModel {
-  UserModel({required this.message, required this.token});
 
-  final String message;
-  final String token;
+  class UserModel {
+  String? message;
+  String? error;
+  int? statusCode;
+  String? token;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(message: json['message'] ?? "", token: json['data'] ?? "");
+  UserModel({
+  required this.message,
+  required this.error,
+  required this.statusCode,
+  required this.token,
+  });
+
+   UserModel.fromJson(Map<String, dynamic> json) {
+  token= json['data'];
+  message= json['message'] is List
+  ? (json['message'] as List).join(', ') // Convert list to string
+      : json['message'].toString(); // Convert single string to string
+  error= json['error'] ?? 'Unknown Error';
+  statusCode=  json['statusCode'] ?? 0;
+
+  }
   }
 
-  Map<String, dynamic> toJson() => {'message': message, 'token': token};
-}
+
+
+

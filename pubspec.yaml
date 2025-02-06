@@ -51,8 +51,6 @@ dependencies:
 
   fluttertoast: ^8.2.11
   dio: ^5.8.0+1
-  shared_preferences: ^2.5.1
-
   awesome_dialog: ^3.2.1
 
 

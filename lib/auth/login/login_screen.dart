@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is FailureLoginState) {
               DailogUtilis.hideLoading(context: context);
               DailogUtilis.showMessage(
-                  title: 'Error', context: context, message: state.message);
+                  title: 'Error', context: context, message: state.message,postActionname: "OK",postActionFunc: Navigator.pop);
             } else if (state is SucessLoginState) {
               DailogUtilis.hideLoading(context: context);
               DailogUtilis.showMessage(
@@ -112,27 +112,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: width * 0.02),
-                          child: InkWell(
+                        child :InkWell(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ForgetPassword(),
-                              ));
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgetPassword(),));
                             },
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                    context, ForgetPassword.routeName);
-                              },
-                              child: Text(
-                                "Forget Password ?",
-                                style: AppStyles.normal14primary,
-                              ),
+                            child: Text(
+                              "Forget Password ?",
+                              style: AppStyles.normal14primary,
                             ),
                           ),
                         ),
-                      ),
+
                       SizedBox(
                         height: height * 0.03,
                       ),

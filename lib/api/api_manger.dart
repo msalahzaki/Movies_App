@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:movies_app/api/api_const.dart';
 import 'package:movies_app/api/end_points.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_app/model/user_model.dart';
 import 'package:movies_app/model/user_profile.dart';
 import '../model/MoviesResponse.dart';
-import 'package:movies_app/model/user_model.dart';
+
 
 
 class ApiManger {
@@ -21,18 +22,8 @@ class ApiManger {
       url,
       body: {"email": email, "password": password},
     );
-    if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
-      if (jsonData['message'] == 'Success Login') {
-        return UserModel.fromJson(jsonData);
-      } else {
-        print("faileed");
-
-        throw Exception(jsonData['message'] ?? "Login failed");
-      }
-    } else {
-      print("errrrror");
-    }
+      return UserModel.fromJson(jsonData);
   }
 
 
