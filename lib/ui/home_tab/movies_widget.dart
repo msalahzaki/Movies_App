@@ -1,13 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/ui/movies/cubit/movies_states.dart';
-import 'package:movies_app/ui/movies/cubit/movies_view_model.dart';
+import 'package:movies_app/ui/home_tab/cubit/movies_states.dart';
+import 'package:movies_app/ui/home_tab/cubit/movies_view_model.dart';
+import 'package:movies_app/ui/movies/movie_details_screen.dart';
+
 import 'package:movies_app/utils/app_color.dart';
 
 import '../../utils/app_assets.dart';
 import '../../utils/app_styles.dart';
-import 'movie_poster_rate_widget.dart';
+import '../movies/movie_poster_rate_widget.dart';
 
 class MoviesWidget extends StatefulWidget {
   const MoviesWidget({super.key});
@@ -91,11 +93,24 @@ class _MoviesWidgetState extends State<MoviesWidget> {
                         CarouselSlider.builder(
                             itemCount: state.moviesList.length,
                             itemBuilder: (context, index, realIndex) {
-                              return MoviePosterRateWidget(
-                                  imagePath:
-                                      state.moviesList[index].largeCoverImage ??
-                                          AppAssets.errorImage,
-                                  rate: state.moviesList[index].rating ?? 0);
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MovieDetailsScreen(
+                                                movieId: state
+                                                    .moviesList[index].id!
+                                                    .toString()),
+                                      ));
+                                },
+                                child: MoviePosterRateWidget(
+                                    imagePath: state.moviesList[index]
+                                            .largeCoverImage ??
+                                        AppAssets.errorImage,
+                                    rate: state.moviesList[index].rating ?? 0),
+                              );
                             },
                             options: CarouselOptions(
                                 height: height * 0.35,

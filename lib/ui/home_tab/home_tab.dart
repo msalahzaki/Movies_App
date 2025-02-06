@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/ui/movies/genres_widget.dart';
-import 'package:movies_app/ui/movies/movies_widget.dart';
+import 'package:movies_app/ui/home_tab/genres_widget.dart';
+import 'package:movies_app/ui/home_tab/movies_widget.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
