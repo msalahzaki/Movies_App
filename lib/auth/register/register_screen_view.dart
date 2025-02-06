@@ -168,19 +168,27 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
           CustomDailog.showLoading(context);
         }else if(state is RegisterErrorState){
           CustomDailog.hideLoading(context);
-          CustomDailog.showMessageDailog(context,
-              message: state.errorMessage,
-              title: 'Error',
-              firstButtonLabel: 'Ok',
-              firstButtonAction: () => Navigator.of(context).pop()
-          );
+
+          CustomDailog.showAwesomeErrorMessageDialog(context: context, massage: state.errorMessage,okFunction: (){});
+          // CustomDailog.showMessageDailog(context,
+          //     message: state.errorMessage,
+          //     title: 'Error',
+          //     firstButtonLabel: 'Ok',
+          //     firstButtonAction: () => Navigator.of(context).pop()
+          // );
         }else if (state is RegisterSuccessState){
-          CustomDailog.showMessageDailog(context,
-              title: 'Success',
-              message: state.successMessage,
-              firstButtonLabel: 'Go To Login',
-              firstButtonAction: () => Navigator.of(context).pushReplacementNamed(LoginScreen.loginScreenId)
-          );
+          CustomDailog.hideLoading(context);
+          CustomDailog.showAwesomeSuccessMessageDialog(context: context, massage: state.successMessage,okText: 'Go To Login',okFunction: (){
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
+          });
+          //
+          // CustomDailog.showMessageDailog(context,
+          //     title: 'Success',
+          //     message: state.successMessage,
+          //     firstButtonLabel: 'Go To Login',
+          //     firstButtonAction: () => Navigator.of(context).pushReplacementNamed(LoginScreen.loginScreenId)
+          // );
         }
       },
     );

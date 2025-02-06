@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomDailog.showAwesomeErrorMessageDialog(
                   context: context,
                   massage: state.message,
-                  okFunction: () { });
+                  okFunction: () {});
             } else if (state is SucessLoginState) {
               DailogUtilis.hideLoading(context: context);
               CustomDailog.showAwesomeSuccessMessageDialog(

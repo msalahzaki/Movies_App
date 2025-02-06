@@ -16,7 +16,7 @@ late ProfileTabViewmodel profileTabViewmodel ;
   TextEditingController phoneEditingController = TextEditingController();
 
   Future<void> updateProfile({String? token}) async {
-    token ??= stoken ;
+    token ??= profileTabViewmodel.loginViewModel!.userToken ??= "";
     if(formKey.currentState!.validate())
     {
       emit(UpdateProfileLoadingState());
@@ -36,7 +36,7 @@ late ProfileTabViewmodel profileTabViewmodel ;
   }
 
   Future<void> deleteProfile({String? token}) async {
-    token = stoken ;
+    token ??= profileTabViewmodel.loginViewModel!.userToken ??= "";
     emit(UpdateProfileLoadingState());
 
     String? response = await ApiManger.deleteProfile(token: token);

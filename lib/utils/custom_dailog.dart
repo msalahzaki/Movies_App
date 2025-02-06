@@ -97,15 +97,16 @@ class CustomDailog {
   }
 
   static void showAwesomeSuccessMessageDialog(
-      {required  context, required String massage,Function()? okFunction }){
+      {required  context, required String massage,Function()? okFunction , String? okText}){
     AwesomeDialog(
       context: context,
       animType: AnimType.leftSlide,
       headerAnimationLoop: false,
       dialogType: DialogType.success,
-      title: 'Succes',
+      title: 'Success',
       desc:massage,
       descTextStyle: AppStyles.normal20black,
+      btnOkText: okText,
       btnOkOnPress:okFunction,
       btnOkIcon: Icons.check_circle,
 
