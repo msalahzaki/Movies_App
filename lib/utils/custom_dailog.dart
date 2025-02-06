@@ -1,5 +1,7 @@
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+
 
 
 
@@ -7,7 +9,7 @@ class CustomDailog {
   static List<Widget> actions = [];
   Function? firstButtonAction;
 
-  static void showLoading(BuildContext context) {
+  static void showLoading(context) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -27,11 +29,11 @@ class CustomDailog {
     );
   }
 
-  static void hideLoading(BuildContext context) {
+  static void hideLoading(  context) {
     Navigator.pop(context);
   }
 
-  static void showMessageDailog(BuildContext context,
+  static void showMessageDailog(  context,
       {String? title,
       String? message,
       String? firstButtonLabel,
@@ -64,7 +66,6 @@ class CustomDailog {
             secondButtonLabel,
           )));
     }
-
     showDialog(
       context: context,
       builder: (context) {
@@ -72,11 +73,43 @@ class CustomDailog {
           title: Text(title ?? ""),
           content: Text(
             message ?? "",
-
           ),
           actions: actions,
         );
       },
     );
   }
-}
+
+  static void showAwesomeErrorMessageDialog(
+      {required  context, required String massage}){
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.rightSlide,
+      headerAnimationLoop: false,
+      title: 'Error',
+      desc:massage,
+      btnOkOnPress: () {},
+      btnOkColor: Colors.red,
+    ).show();
+  }
+
+  static void showAwesomeSuccessMessageDialog(
+      {required  context, required String massage}){
+    AwesomeDialog(
+      context: context,
+      animType: AnimType.leftSlide,
+      headerAnimationLoop: false,
+      dialogType: DialogType.success,
+      title: 'Succes',
+      desc:massage,
+      btnOkOnPress: () {
+
+      },
+      btnOkIcon: Icons.check_circle,
+
+    ).show();
+  }
+  }
+
+

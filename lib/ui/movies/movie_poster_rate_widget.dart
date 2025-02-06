@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
@@ -11,8 +12,6 @@ class MoviePosterRateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         Container(
@@ -20,9 +19,16 @@ class MoviePosterRateWidget extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Image.asset(
-            imagePath,
+          child: CachedNetworkImage(
             fit: BoxFit.cover,
+            imageUrl: imagePath,
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(
+                color: AppColor.gray,
+              ),
+            ),
+            errorWidget: (context, url, error) =>
+                Center(child: Image.asset(AppAssets.errorImage)),
           ),
         ),
         Container(
