@@ -37,11 +37,11 @@ class UpdateProfile extends StatelessWidget {
             }
             else if (state is UpdateProfileErrorState){
               Navigator.pop(context);
-              return CustomDailog.showAwesomeErrorMessageDialog(context: context,massage:  state.errorMassage);
+              return CustomDailog.showAwesomeErrorMessageDialog(context: context,massage:  state.errorMassage,okFunction: (){} );
             }
             else if (state is UpdateProfileSussesState){
               Navigator.pop(context);
-              return CustomDailog.showAwesomeSuccessMessageDialog(context: context,massage: "Profile Update Successful");
+              return CustomDailog.showAwesomeSuccessMessageDialog(context: context,massage: "Profile Update Successful",okFunction: (){} );
             }
             else if (state is DeleteProfileErrorState){
               Navigator.pop(context);

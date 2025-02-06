@@ -11,7 +11,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString('token');
+      String? token = prefs.getString('user_token');
 
       if (token == null) {
         emit(ResetPasswordFailure("No authentication token found."));

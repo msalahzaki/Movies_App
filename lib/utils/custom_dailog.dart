@@ -1,6 +1,7 @@
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/utils/app_styles.dart';
 
 
 
@@ -81,7 +82,7 @@ class CustomDailog {
   }
 
   static void showAwesomeErrorMessageDialog(
-      {required  context, required String massage}){
+      {required  context, required String massage,Function()? okFunction }){
     AwesomeDialog(
       context: context,
       dialogType: DialogType.error,
@@ -89,13 +90,14 @@ class CustomDailog {
       headerAnimationLoop: false,
       title: 'Error',
       desc:massage,
-      btnOkOnPress: () {},
+      descTextStyle: AppStyles.normal20black,
+      btnOkOnPress:okFunction,
       btnOkColor: Colors.red,
     ).show();
   }
 
   static void showAwesomeSuccessMessageDialog(
-      {required  context, required String massage}){
+      {required  context, required String massage,Function()? okFunction }){
     AwesomeDialog(
       context: context,
       animType: AnimType.leftSlide,
@@ -103,9 +105,8 @@ class CustomDailog {
       dialogType: DialogType.success,
       title: 'Succes',
       desc:massage,
-      btnOkOnPress: () {
-
-      },
+      descTextStyle: AppStyles.normal20black,
+      btnOkOnPress:okFunction,
       btnOkIcon: Icons.check_circle,
 
     ).show();

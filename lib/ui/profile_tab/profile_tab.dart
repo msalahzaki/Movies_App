@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/auth/login/cubit/login_view_model.dart';
+import 'package:movies_app/auth/login/login_screen.dart';
 import 'package:movies_app/ui/profile_tab/cubit/profile_tab_states.dart';
 import 'package:movies_app/ui/profile_tab/cubit/profile_tab_viewModel.dart';
 import 'package:movies_app/ui/profile_tab/history_tab/history_tab.dart';
@@ -19,6 +21,7 @@ class ProfileTab extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     ProfileTabViewmodel profileTabViewModel =
     BlocProvider.of<ProfileTabViewmodel>(context);
+    profileTabViewModel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
     return Scaffold(backgroundColor: AppColor.semiBlack,
       body: SafeArea(
         child: Column(
@@ -30,7 +33,7 @@ class ProfileTab extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 BlocBuilder<ProfileTabViewmodel, ProfileTabStates>(
-                  bloc: profileTabViewModel..getProfile(),
+                  bloc: profileTabViewModel..getProfile(token: profileTabViewModel.loginViewModel?.userToken),
                   builder: (context, state) {
                     if (state is GetProfileSussesState) {
                       return Column(
@@ -92,7 +95,9 @@ class ProfileTab extends StatelessWidget {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: AppColor.red),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
+                        },
                         child: Text(
                           "Exit > ",
                           style: AppStyles.normal20white,

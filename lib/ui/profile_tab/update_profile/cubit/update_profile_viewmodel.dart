@@ -16,7 +16,7 @@ late ProfileTabViewmodel profileTabViewmodel ;
   TextEditingController phoneEditingController = TextEditingController();
 
   Future<void> updateProfile({String? token}) async {
-    token = stoken ;
+    token ??= stoken ;
     if(formKey.currentState!.validate())
     {
       emit(UpdateProfileLoadingState());
@@ -28,7 +28,7 @@ late ProfileTabViewmodel profileTabViewmodel ;
           avatarID: profileAvatar);
       if (response == null) {
         emit(UpdateProfileSussesState());
-        profileTabViewmodel.getProfile();
+        profileTabViewmodel.getProfile(token: profileTabViewmodel.loginViewModel?.userToken);
       } else {
         emit(UpdateProfileErrorState(response));
       }

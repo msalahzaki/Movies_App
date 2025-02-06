@@ -9,6 +9,7 @@ import 'package:movies_app/home.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
+import 'package:movies_app/utils/custom_dailog.dart';
 import 'package:movies_app/utils/dailog_utilis.dart';
 
 import '../../auth/widget/language_widget.dart';
@@ -22,10 +23,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  LoginViewModel loginViewModel = LoginViewModel();
   bool obsecure = true;
   @override
   Widget build(BuildContext context) {
+    LoginViewModel loginViewModel = BlocProvider.of<LoginViewModel>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return BlocProvider.value(
@@ -34,20 +35,17 @@ class _LoginScreenState extends State<LoginScreen> {
           listener: (context, state) {
             if (state is FailureLoginState) {
               DailogUtilis.hideLoading(context: context);
-              DailogUtilis.showMessage(
-                  title: 'Error', context: context, message: state.message,postActionname: "OK",postActionFunc: Navigator.pop);
+              CustomDailog.showAwesomeErrorMessageDialog(
+                  context: context,
+                  massage: state.message,
+                  okFunction: () { });
             } else if (state is SucessLoginState) {
               DailogUtilis.hideLoading(context: context);
-              DailogUtilis.showMessage(
+              CustomDailog.showAwesomeSuccessMessageDialog(
                   context: context,
-                  message: state.message,
-                  title: 'Sucess',
-                  postActionname: "ok",
-                  postActionFunc: () {
-                    loginViewModel.goToHome(context);
-                  });
-              // TODO: Navigate to home screen
-            } else if (state is LoadingLoginState) {
+                  massage: state.message,
+                  okFunction: () { loginViewModel.goToHome(context);});
+             } else if (state is LoadingLoginState) {
               DailogUtilis.showLoading(context: context, message: "Loading...");
             }
           },
@@ -112,17 +110,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child :InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ForgetPassword(),));
-                            },
-                            child: Text(
-                              "Forget Password ?",
-                              style: AppStyles.normal14primary,
-                            ),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ForgetPassword(),
+                            ));
+                          },
+                          child: Text(
+                            "Forget Password ?",
+                            style: AppStyles.normal14primary,
                           ),
                         ),
-
+                      ),
                       SizedBox(
                         height: height * 0.03,
                       ),
