@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:movies_app/api/api_const.dart';
 import 'package:movies_app/api/end_points.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_app/model/FavoriteResponse.dart';
 import 'package:movies_app/model/user_model.dart';
 import 'package:movies_app/model/user_profile.dart';
 import '../model/MoviesResponse.dart';
@@ -138,6 +139,19 @@ class ApiManger {
       return -1;
     }
 
+  }
+  static Future<FavoriteResponse> getAllFavoriteMovies({required String token}) async{
+   try{
+     var response = await http.get(
+         Uri.https(ApiConst.baseMoviesURL,EndPoints.favoritesAll),
+         headers: {
+           'Authorization': 'Bearer $token',
+         }
+     );
+     return FavoriteResponse.fromJson(jsonDecode(response.body));
+   }catch(e){
+     rethrow;
+   }
   }
 
 

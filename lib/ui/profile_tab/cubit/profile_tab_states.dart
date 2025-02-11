@@ -12,5 +12,6 @@ class GetProfileSussesState extends ProfileTabStates{
   UserProfile userProfile ;
   GetProfileSussesState(this.userProfile);
 }
+class ChangeIndexState extends ProfileTabStates{}
 
 

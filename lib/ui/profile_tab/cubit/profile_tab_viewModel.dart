@@ -11,7 +11,7 @@ class ProfileTabViewmodel extends Cubit<ProfileTabStates>{
   UserProfile? currentUser;
   LoginViewModel? loginViewModel ;
   String stoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTAwM2U1MmRiNDBjYTQwNTYwYWNmZCIsImVtYWlsIjoieW91c3NlZjIyQGdtYWlsLmNvbSIsImlhdCI6MTczODY1NDc5NX0.Y4PBCVjPm4uEA9-q0TNsbOfzFzj_tnVFXX4WXYZUzMI";
-
+  int selectedIndex = 0;
   Future<UserProfile?> getProfile({required String? token}) async {
     token ??= stoken ;
 
@@ -30,7 +30,8 @@ class ProfileTabViewmodel extends Cubit<ProfileTabStates>{
     }
     return null;
   }
-
-
-
+  void changeSelectedIndex(int index){
+    selectedIndex = index;
+    emit(ChangeIndexState());
+  }
 }

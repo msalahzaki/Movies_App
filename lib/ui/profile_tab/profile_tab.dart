@@ -16,13 +16,12 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    ProfileTabViewmodel profileTabViewModel =
-    BlocProvider.of<ProfileTabViewmodel>(context);
+    ProfileTabViewmodel profileTabViewModel = BlocProvider.of<ProfileTabViewmodel>(context);
     profileTabViewModel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
-    return Scaffold(backgroundColor: AppColor.semiBlack,
+    return Scaffold(
+      backgroundColor: AppColor.semiBlack,
       body: SafeArea(
         child: Column(
           children: [
@@ -35,29 +34,29 @@ class ProfileTab extends StatelessWidget {
                 BlocBuilder<ProfileTabViewmodel, ProfileTabStates>(
                   bloc: profileTabViewModel..getProfile(token: profileTabViewModel.loginViewModel?.userToken),
                   builder: (context, state) {
-                    if (state is GetProfileSussesState) {
+                    if (state is GetProfileLoadingState) {
+                      return CircularProgressIndicator(color: AppColor.orange,);
+                    } else  {
                       return Column(
                         children: [
                           CircleAvatar(
                             maxRadius: 50,
                             child: Image.asset(
                               AppAssets.avatarImages[
-                              (state.userProfile.data!.avaterId ?? 1) -
+                              (profileTabViewModel.currentUser!.data!.avaterId ?? 1) -
                                   1],
                             ),
                           ),
                           SizedBox(
                             width: width * .4,
                             child: Text(
-                              state.userProfile.data?.name ?? "",
+                              profileTabViewModel.currentUser!.data!.name ?? "",
                               style: AppStyles.bold20white,
                               overflow: TextOverflow.ellipsis,
                             ),
                           )
                         ],
                       );
-                    } else {
-                      return const SizedBox();
                     }
                   },
                 ),
@@ -74,41 +73,49 @@ class ProfileTab extends StatelessWidget {
               SizedBox(
                 height: height * .03,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UpdateProfile(),));
-                        },
-                        child: Text(
-                          "Edit Profile",
-                          style: AppStyles.normal20black,
-                        )),
-                  ),
-                  SizedBox(
-                    width: width * .02,
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColor.red),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
-                        },
-                        child: Text(
-                          "Exit > ",
-                          style: AppStyles.normal20white,
-                        )),
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: width * 0.037,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UpdateProfile(),));
+                          },
+                          child: Text(
+                            "Edit Profile",
+                            style: AppStyles.normal20black,
+                          )),
+                    ),
+                    SizedBox(
+                      width: width * .02,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.red),
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
+                          },
+                          child: Text(
+                            "Exit > ",
+                            style: AppStyles.normal20white,
+                          )),
+                    ),
+                  ],
+                ),
               ),
-
               DefaultTabController(
                   length: 2,
                   child: TabBar(
+                    onTap: (index) {
+                      profileTabViewModel.changeSelectedIndex(index);
+                      print(profileTabViewModel.selectedIndex);
+                    },
                     tabs: [
                       Tab(
                         iconMargin: const EdgeInsets.all(8),
@@ -123,7 +130,13 @@ class ProfileTab extends StatelessWidget {
                     ],
                   )
               ),
-
+              BlocBuilder<ProfileTabViewmodel, ProfileTabStates>(
+                bloc: profileTabViewModel,
+                builder: (context, state) {
+                return profileTabViewModel.selectedIndex == 0 ?
+                    WatchlistTab() : HistoryTab();
+              },
+              )
             ],
           ),
         ),
