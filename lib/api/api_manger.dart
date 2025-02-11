@@ -140,18 +140,24 @@ class ApiManger {
     }
 
   }
-  static Future<FavoriteResponse> getAllFavoriteMovies({required String token}) async{
-   try{
-     var response = await http.get(
-         Uri.https(ApiConst.baseMoviesURL,EndPoints.favoritesAll),
-         headers: {
-           'Authorization': 'Bearer $token',
-         }
-     );
-     return FavoriteResponse.fromJson(jsonDecode(response.body));
-   }catch(e){
-     rethrow;
-   }
+  static Future<FavoriteResponse> getAllFavoriteMovies({required String token}) async {
+    try {
+      var response = await http.get(
+        Uri.https(ApiConst.baseAuthURL,EndPoints.favoritesAll),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        return FavoriteResponse.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception('Failed to load favorite movies. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching favorite movies: $e');
+      throw Exception(e.toString());
+    }
   }
 
 

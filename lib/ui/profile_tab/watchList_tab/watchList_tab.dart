@@ -7,18 +7,33 @@ import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_states.
 import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_view_model.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
+import 'package:movies_app/utils/app_styles.dart';
 
-class WatchlistTab extends StatelessWidget {
+class WatchlistTab extends StatefulWidget {
+
+
+  @override
+  State<WatchlistTab> createState() => _WatchlistTabState();
+}
+
+class _WatchlistTabState extends State<WatchlistTab> {
+  WatchListViewModel viewModel = WatchListViewModel();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModel.getFavoriteList(token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTUwOTEyOTQwNjkyZDcxOGQ4NmY2NCIsImVtYWlsIjoieW91c3NlZjIyQGdtYWlsLmNvbSIsImlhdCI6MTczOTIwNTA5OH0.0Qj01Ov7iLRirEQsQUtYuNs0yP4mZhlsRX4M2HBA1t0');
+    print('${viewModel.favoriteMoviesList[0].name}');
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    WatchListViewModel viewModel = WatchListViewModel();
-    viewModel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    return BlocBuilder(
-      bloc: viewModel..getFavoriteList(token: viewModel.loginViewModel!.userToken),
+    return BlocBuilder<WatchListViewModel,WatchListStates>(
+      bloc: viewModel,
       builder: (context, state) {
         if(state is LoadingLoginState){
           return Scaffold(
@@ -34,7 +49,14 @@ class WatchlistTab extends StatelessWidget {
               child: Image.asset(AppAssets.emptyBG),
             ),
           );
-        }else{
+        }else if(state is WatchListErrorState){
+          return Scaffold(
+            body: Center(
+              child: Text(state.errorMessage,style: AppStyles.normal20white,),
+            ),
+          );
+        }
+        else{
           return Expanded(
             child: Scaffold(
                 body: GridView.builder(
