@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/api/api_manger.dart';
 
 import 'package:movies_app/model/genres_model.dart';
-import 'package:movies_app/ui/movies/cubit/genres_states.dart';
+import 'package:movies_app/ui/home_tab/cubit/genres_states.dart';
 
 class GenresViewModel extends Cubit<GenresStates> {
   late String genre;
