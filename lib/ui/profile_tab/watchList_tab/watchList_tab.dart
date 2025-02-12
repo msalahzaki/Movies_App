@@ -93,6 +93,3 @@ class _WatchlistTabState extends State<WatchlistTab> {
     );
   }
 }
-// Center(
-// child: Image.asset(AppAssets.emptyBG),
-// ),
