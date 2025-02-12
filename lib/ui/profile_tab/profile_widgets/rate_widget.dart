@@ -4,7 +4,7 @@ import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 
 class RateWidget extends StatelessWidget {
-  double rate;
+  num? rate;
   RateWidget({required this.rate});
 
   @override

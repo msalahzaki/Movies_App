@@ -6,7 +6,7 @@ import 'package:movies_app/utils/app_color.dart';
 
 class MovieProfileItem extends StatelessWidget{
   String? imageUrl;
-  double? rate;
+  num? rate;
   MovieProfileItem({required this.imageUrl, required this.rate});
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class MovieProfileItem extends StatelessWidget{
                Center(child: Image.asset(AppAssets.errorImage)),
          ),
        ),
-       RateWidget(rate: rate??0.0),
+       RateWidget(rate: rate ?? 0.0),
      ],
    );
 

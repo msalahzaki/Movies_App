@@ -18,45 +18,43 @@ class WatchlistTab extends StatefulWidget {
 
 class _WatchlistTabState extends State<WatchlistTab> {
   WatchListViewModel viewModel = WatchListViewModel();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    viewModel.getFavoriteList(token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTUwOTEyOTQwNjkyZDcxOGQ4NmY2NCIsImVtYWlsIjoieW91c3NlZjIyQGdtYWlsLmNvbSIsImlhdCI6MTczOTIwNTA5OH0.0Qj01Ov7iLRirEQsQUtYuNs0yP4mZhlsRX4M2HBA1t0');
-    print('${viewModel.favoriteMoviesList[0].name}');
-  }
-
 
   @override
   Widget build(BuildContext context) {
-
+    viewModel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder<WatchListViewModel,WatchListStates>(
-      bloc: viewModel,
+      bloc: viewModel..getFavoriteList(token: viewModel.loginViewModel?.userToken),
       builder: (context, state) {
         if(state is LoadingLoginState){
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(
-                color: AppColor.orange,
+          return const Expanded(
+            child: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(
+                  color: AppColor.orange,
+                ),
               ),
             ),
           );
         }else if(state is WatchListEmptyState){
-          return Scaffold(
-            body: Center(
-              child: Image.asset(AppAssets.emptyBG),
+          return Expanded(
+            child: Scaffold(
+              body: Center(
+                child: Image.asset(AppAssets.emptyBG),
+              ),
             ),
           );
         }else if(state is WatchListErrorState){
-          return Scaffold(
-            body: Center(
-              child: Text(state.errorMessage,style: AppStyles.normal20white,),
+          return Expanded(
+            child: Scaffold(
+              body: Center(
+                child: Text(state.errorMessage,style: AppStyles.normal20white,),
+              ),
             ),
           );
         }
-        else{
+        else if (state is WatchListSuccessState){
           return Expanded(
             child: Scaffold(
                 body: GridView.builder(
@@ -72,12 +70,22 @@ class _WatchlistTabState extends State<WatchlistTab> {
                   ),
                   itemBuilder: (context, index) {
                     return MovieProfileItem(
-                      imageUrl: viewModel.favoriteMoviesList![index].imageURL,
-                      rate: viewModel.favoriteMoviesList![index].rating,
+                      imageUrl: viewModel.favoriteMoviesList[index].imageURL,
+                      rate: viewModel.favoriteMoviesList[index].rating,
                     );
                   },
-                  itemCount: viewModel.favoriteMoviesList!.length,
+                  itemCount: viewModel.favoriteMoviesList.length,
                 )
+            ),
+          );
+        }else{
+          return const Expanded(
+            child: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(
+                  color: AppColor.orange,
+                ),
+              ),
             ),
           );
         }

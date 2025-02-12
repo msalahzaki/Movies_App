@@ -1,19 +1,25 @@
 class FavoriteResponse {
   FavoriteResponse({
-      this.message, 
+      this.message,
+    this.error,
+    this.statusCode,
       this.data,});
 
   FavoriteResponse.fromJson(dynamic json) {
     message = json['message'];
+    error = json['error'];
+    statusCode = json['statusCode'];
     if (json['data'] != null) {
       data = [];
       json['data'].forEach((v) {
-        data?.add(FavoriteMovie.fromJson(v));
+        data?.add(FavoriteMove.fromJson(v));
       });
     }
   }
   String? message;
-  List<FavoriteMovie>? data;
+  List<FavoriteMove>? data;
+  String? error;
+  int? statusCode;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -26,15 +32,15 @@ class FavoriteResponse {
 
 }
 
-class FavoriteMovie {
-  FavoriteMovie({
+class FavoriteMove {
+  FavoriteMove({
       this.movieId, 
       this.name, 
       this.rating, 
       this.imageURL, 
       this.year,});
 
-  FavoriteMovie.fromJson(dynamic json) {
+  FavoriteMove.fromJson(dynamic json) {
     movieId = json['movieId'];
     name = json['name'];
     rating = json['rating'];
@@ -43,7 +49,7 @@ class FavoriteMovie {
   }
   String? movieId;
   String? name;
-  double? rating;
+  num? rating;
   String? imageURL;
   String? year;
 
