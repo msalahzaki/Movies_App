@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/ui/movies/cubit/similar_states.dart';
 import 'package:movies_app/ui/movies/cubit/similar_view_model.dart';
+import 'package:movies_app/ui/movies/movie_details_screen.dart';
 import 'package:movies_app/ui/movies/movie_poster_rate_widget.dart';
 import 'package:movies_app/utils/app_assets.dart';
 
@@ -48,42 +49,48 @@ class _SimilarWidgetState extends State<SimilarWidget> {
               ),
             );
           } else if (state is SimilarSuccessState) {
-            return SizedBox(
-              height: height * 0.3,
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return MoviePosterRateWidget(
-                        imagePath: state.moviesSuggestionsList[index]
-                                .mediumCoverImage ??
-                            AppAssets.errorImage,
-                        rate: state.moviesSuggestionsList[index].rating ?? 0);
-                  },
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      width: 20,
-                    );
-                  },
-                  itemCount: state.moviesSuggestionsList.length),
-            );
-            //   SizedBox(
-            //   height: height*0.7,
-            //   child: GridView.builder(
-            //       scrollDirection: Axis.values[0],
-            //       itemCount: state.moviesSuggestionsList.length,
-            //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //           crossAxisCount: 2,
-            //           // childAspectRatio: 0.75/2,
-            //           // mainAxisSpacing: 15,
-            //           crossAxisSpacing: 20
-            //       ),
-            //       itemBuilder: (context,index){
-            //         return MoviePosterRateWidget(
-            //             imagePath: state.moviesSuggestionsList[index].mediumCoverImage??'',
-            //             rate: state.moviesSuggestionsList[index].rating??0);
-            //       }
-            //   ),
+            // return SizedBox(
+            //   height: height * 0.3,
+            //   child: ListView.separated(
+            //       scrollDirection: Axis.horizontal,
+            //       itemBuilder: (context, index) {
+            //         return
+            //           MoviePosterRateWidget(
+            //             imagePath: state.moviesSuggestionsList[index]
+            //                     .mediumCoverImage ??
+            //                 AppAssets.errorImage,
+            //             rate: state.moviesSuggestionsList[index].rating ?? 0);
+            //       },
+            //       separatorBuilder: (context, index) {
+            //         return SizedBox(
+            //           width: 20,
+            //         );
+            //       },
+            //       itemCount: state.moviesSuggestionsList.length),
             // );
+             return SizedBox(
+              height: height*0.7,
+              child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.moviesSuggestionsList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                       childAspectRatio: 2/1.3,
+                       mainAxisSpacing: 15,
+                      crossAxisSpacing: 5
+                  ),
+                  itemBuilder: (context,index){
+                    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: state.moviesSuggestionsList[index].id.toString()),));
+                      },
+                      child: MoviePosterRateWidget(
+                          imagePath: state.moviesSuggestionsList[index].mediumCoverImage??'',
+                          rate: state.moviesSuggestionsList[index].rating??0),
+                    );
+                  }
+              ),
+            );
           }
           return Container();
         });

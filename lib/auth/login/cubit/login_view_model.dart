@@ -9,8 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginViewModel extends Cubit<LoginStates> {
   final formkey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController(text: "youssef22@gmail.com");
+  TextEditingController passwordController = TextEditingController(text: "You2512@");
   late String? userToken;
   late String? savedPass;
   LoginViewModel() : super(LoadingLoginState());

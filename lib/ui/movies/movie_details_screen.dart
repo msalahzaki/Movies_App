@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:movies_app/auth/login/cubit/login_view_model.dart';
 import 'package:movies_app/model/movie_details_model.dart';
 import 'package:movies_app/ui/movies/cubit/movie_details_state.dart';
 import 'package:movies_app/ui/movies/cubit/movie_details_viewModel.dart';
@@ -30,20 +32,19 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
     // TODO: implement initState
     super.initState();
     viewmodel.getMovieDetails(widget.movieId);
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..loadRequest(Uri.https(viewmodel.movieDetails?.data?.movie?.url ?? ''));
+
   }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    viewmodel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
     Movie movie;
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
-        child: BlocBuilder<MovieDetailsViewmodel, MovieDetailsState>(
+        child: BlocConsumer<MovieDetailsViewmodel, MovieDetailsState>(
           bloc: viewmodel,
           builder: (context, state) {
             if (state is LoadingMovieDetailsState) {
@@ -100,14 +101,14 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                     },
                                   ),
                                   IconButton(
-                                    icon: const Icon(
+                                    icon:  Icon(
                                       Icons.bookmark,
-                                      color: AppColor.white,
+                                      color: viewmodel.isFavorite?AppColor.orange: AppColor.white,
                                       size: 35,
                                     ),
                                     onPressed: () {
-                                      print(viewmodel
-                                          .movieDetails?.data?.movie?.url);
+                                   viewmodel.isFavorite? viewmodel.removeFromFavorite(movie): viewmodel.addToFavorite(movie);
+                                    //  print(viewmodel.movieDetails?.data?.movie?.url);
                                     },
                                   ),
                                 ],
@@ -143,6 +144,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           minimumSize: Size(width, height * .03)),
                       onPressed: () {
                         goToWebView();
+                        viewmodel.saveMovieInHistory(movie);
                       },
                       child: Text(
                         "Watch",
@@ -174,6 +176,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   SizedBox(
                     height: height * 0.02,
                   ),
+
                   ScreenShotWidget(
                       imagePath: movie.largeScreenshotImage1 ?? ''),
                   SizedBox(
@@ -186,6 +189,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   ),
                   ScreenShotWidget(
                       imagePath: movie.largeScreenshotImage3 ?? ''),
+
                   SizedBox(
                     height: height * 0.02,
                   ),
@@ -208,7 +212,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     height: height * 0.02,
                   ),
                   Text(
-                    movie.descriptionIntro ?? 'No Summary Found For This Movie',
+                    (movie.descriptionIntro == null || movie.descriptionIntro!.isEmpty  ) ? 'No Summary Found For This Movie' :movie.descriptionIntro! ,
                     style: AppStyles.light16White,
                   ),
                   SizedBox(
@@ -275,13 +279,21 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                     height: height * 0.02,
                   )
                 ]);
-          },
+          }, listener: (BuildContext context, MovieDetailsState state) {
+            if(state is AddedRemoveFavoriteMovieDetailsState){
+              Fluttertoast.showToast(msg: state.message);
+            }
+        },
         ),
       ),
     ));
   }
 
   void goToWebView() {
+    print(viewmodel.movieDetails?.data?.movie?.url);
+    controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..loadRequest(Uri.parse(viewmodel.movieDetails?.data?.movie?.url ?? 'https://example.com'));
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) =>
             SafeArea(child: WebViewWidget(controller: controller))));

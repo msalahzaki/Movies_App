@@ -39,8 +39,13 @@ class ApiMangerMovieDetails {
     }
   }
 
- static Future<String?> addFavorite(String movieId, String name, double rating,
-      String imageURL, String year, String token) async {
+ static Future<String?> addFavorite(
+      {required String movieId,
+      required String name,
+      required double rating,
+      required String imageURL,
+      required String year,
+      required String token}) async {
     final url = Uri.https(
       ApiConst.baseAuthURL,
       EndPoints.favoriteAdd,
@@ -99,7 +104,7 @@ class ApiMangerMovieDetails {
  static Future<String?> removeFavorite(String movieId, String token) async {
     Uri url = Uri.https(ApiConst.baseAuthURL, "/favorites/remove/$movieId");
     try {
-      var response = await http.get(
+      var response = await http.delete(
         url,
         headers: {
           'Content-Type': 'application/json',
