@@ -1,7 +1,9 @@
 import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:movies_app/api/api_const.dart';
 import 'package:movies_app/api/end_points.dart';
-import 'package:http/http.dart' as http;
+import 'package:movies_app/model/MovieSuggestions.dart';
 import 'package:movies_app/model/movie_details_model.dart';
 
 
@@ -11,8 +13,6 @@ class ApiMangerMovieDetails {
     try {
       Uri url = Uri.https(ApiConst.baseMoviesURL, EndPoints.movieDetails,
           {'movie_id': movieID, 'with_images': 'true', 'with_cast': 'true'});
-
-      print(url);
       final response = await http.get(url);
       if (response.statusCode == 200) {
         return MovieDetailsModel.fromJson(json.decode(response.body));
@@ -20,8 +20,22 @@ class ApiMangerMovieDetails {
         return null;
       }
     } catch (e) {
-      print("------****************-$e***********----");
-      return null ;
+      return null;
+    }
+  }
+
+  static Future<MovieSuggestions?> getSuggestionMovies(String movieID) async {
+    try {
+      Uri url = Uri.https(ApiConst.baseMoviesURL, EndPoints.movieSuggestions,
+          {'movie_id': movieID});
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        return MovieSuggestions.fromJson(json.decode(response.body));
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
     }
   }
 

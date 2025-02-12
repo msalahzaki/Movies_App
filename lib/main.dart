@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           themeMode: ThemeMode.dark,
           locale: Locale(locale),
-          initialRoute: StartScreen.routeName,
+          initialRoute: Home.homeScreenId,
           routes: {
             SplashScreen.routeName: (context) => SplashScreen(),
             StartScreen.routeName: (context) => StartScreen(),

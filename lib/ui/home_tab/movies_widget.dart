@@ -86,11 +86,11 @@ class _MoviesWidgetState extends State<MoviesWidget> {
                       ],
                     ),
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Image.asset(AppAssets.availableNow),
-                        CarouselSlider.builder(
+                  child: Column(
+                    children: [
+                      Image.asset(AppAssets.availableNow),
+                      Expanded(
+                        child: CarouselSlider.builder(
                             itemCount: state.moviesList.length,
                             itemBuilder: (context, index, realIndex) {
                               return InkWell(
@@ -122,9 +122,9 @@ class _MoviesWidgetState extends State<MoviesWidget> {
                                   currentIndex = index;
                                   setState(() {});
                                 })),
-                        Image.asset(AppAssets.watchNow),
-                      ],
-                    ),
+                      ),
+                      Image.asset(AppAssets.watchNow),
+                    ],
                   ),
                 ),
               ),
