@@ -15,20 +15,21 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BottomNavigationCubit(), // Provide Cubit at a higher level
-      child: const HomeScreenBody(),
+      create: (context) =>
+          BottomNavigationCubit(), // Provide Cubit at a higher level
+      child: HomeScreenBody(),
     );
   }
 }
 
 class HomeScreenBody extends StatelessWidget {
-  const HomeScreenBody({super.key});
+  HomeScreenBody({super.key});
 
-  final List<Widget> tabs = const [
-    HomeTab(),
-    SearchTab(),
+  final List<Widget> tabs = [
+    const HomeTab(),
+    const SearchTab(),
     ExplorerTab(),
-    ProfileTab(),
+    const ProfileTab(),
   ];
 
   @override
@@ -49,7 +50,9 @@ class HomeScreenBody extends StatelessWidget {
                 currentIndex: state,
                 type: BottomNavigationBarType.fixed,
                 onTap: (index) {
-                  context.read<BottomNavigationCubit>().changeNavigationWidget(index); // Update tab
+                  context
+                      .read<BottomNavigationCubit>()
+                      .changeNavigationWidget(index); // Update tab
                 },
                 items: [
                   BottomNavigationBarItem(

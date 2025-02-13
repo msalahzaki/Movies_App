@@ -13,7 +13,7 @@ class DailogUtilis {
           return AlertDialog(
             content: Row(
               children: [
-                CircularProgressIndicator(),
+                const CircularProgressIndicator(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(

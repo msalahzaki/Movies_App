@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:movies_app/api/api_const.dart';
 import 'package:movies_app/api/end_points.dart';
@@ -7,10 +6,7 @@ import 'package:movies_app/model/user_model.dart';
 import 'package:movies_app/model/user_profile.dart';
 import '../model/MoviesResponse.dart';
 
-
-
 class ApiManger {
-
   static const String url = "https://yts.mx/api/v2/list_movies.json";
 
   static Future<UserModel?> loginApi(String email, String password) async {
@@ -22,11 +18,9 @@ class ApiManger {
       url,
       body: {"email": email, "password": password},
     );
-      var jsonData = jsonDecode(response.body);
-      return UserModel.fromJson(jsonData);
+    var jsonData = jsonDecode(response.body);
+    return UserModel.fromJson(jsonData);
   }
-
-
 
   static Future<MoviesResponse> getMovies() async {
     final response = await http.get(Uri.parse(url));
@@ -64,7 +58,11 @@ class ApiManger {
     }
   }
 
-  static Future<String?> updateProfile({required String token,required String name,required String phone,required int avatarID}) async {
+  static Future<String?> updateProfile(
+      {required String token,
+      required String name,
+      required String phone,
+      required int avatarID}) async {
     Uri url = Uri.https(ApiConst.baseAuthURL, EndPoints.profile);
 
     Map<String, dynamic> requestBody = {
@@ -115,10 +113,15 @@ class ApiManger {
       return ("Error: $e");
     }
   }
-  static Future<int> registerUser({required String name, required String email, required String password,
-    required String confirmPassword, required String phone, required int avatarId}) async {
-    try {
 
+  static Future<int> registerUser(
+      {required String name,
+      required String email,
+      required String password,
+      required String confirmPassword,
+      required String phone,
+      required int avatarId}) async {
+    try {
       Map<String, dynamic> data = {
         "name": name,
         "email": email,
@@ -128,7 +131,7 @@ class ApiManger {
         "avaterId": avatarId,
       };
       final response = await http.post(
-        Uri.https(ApiConst.baseAuthURL,EndPoints.register),
+        Uri.https(ApiConst.baseAuthURL, EndPoints.register),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode(data),
       );
@@ -137,9 +140,5 @@ class ApiManger {
       print("Exception: $e");
       return -1;
     }
-
   }
-
-
 }
-

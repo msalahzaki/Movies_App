@@ -25,26 +25,27 @@ void main() {
       providers: [
         BlocProvider<LanguageCubit>(create: (context) => LanguageCubit()),
         BlocProvider<LoginViewModel>(create: (context) => LoginViewModel()),
-        BlocProvider<ProfileTabViewmodel>(create: (context) => ProfileTabViewmodel()),
+        BlocProvider<ProfileTabViewmodel>(
+            create: (context) => ProfileTabViewmodel()),
       ],
       child: const MyApp(),
     ),
   );
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<LanguageCubit, LanguageStates>(
-      builder:(context, state) {
-        String locale ;
-     if(state is ChangeLanguageState){
-       locale = state.language;
-     }else{
-       locale = "en";
-     }
+      builder: (context, state) {
+        String locale;
+        if (state is ChangeLanguageState) {
+          locale = state.language;
+        } else {
+          locale = "en";
+        }
         return MaterialApp(
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
@@ -55,17 +56,15 @@ class MyApp extends StatelessWidget {
           locale: Locale(locale),
           initialRoute: StartScreen.routeName,
           routes: {
-            SplashScreen.routeName: (context) => SplashScreen(),
-            StartScreen.routeName: (context) => StartScreen(),
-            OnboardingScreen.routeName: (context) => OnboardingScreen(),
+            SplashScreen.routeName: (context) => const SplashScreen(),
+            StartScreen.routeName: (context) => const StartScreen(),
+            OnboardingScreen.routeName: (context) => const OnboardingScreen(),
             Home.homeScreenId: (context) => const Home(),
             LoginScreen.loginScreenId: (context) => const LoginScreen(),
-            ResetPassword.routeName: (context) =>  ResetPassword()
+            ResetPassword.routeName: (context) => const ResetPassword()
           },
-
         );
       },
-
     );
   }
 }

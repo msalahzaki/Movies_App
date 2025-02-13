@@ -5,7 +5,6 @@ import 'package:movies_app/auth/login/Custom_elevated_Button_login.dart';
 import 'package:movies_app/auth/login/cubit/login_states.dart';
 import 'package:movies_app/auth/login/cubit/login_view_model.dart';
 import 'package:movies_app/auth/register/register_screen_view.dart';
-import 'package:movies_app/home.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
@@ -36,16 +35,16 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is FailureLoginState) {
               DailogUtilis.hideLoading(context: context);
               CustomDailog.showAwesomeErrorMessageDialog(
-                  context: context,
-                  massage: state.message,
-                  okFunction: () {});
+                  context: context, massage: state.message, okFunction: () {});
             } else if (state is SucessLoginState) {
               DailogUtilis.hideLoading(context: context);
               CustomDailog.showAwesomeSuccessMessageDialog(
                   context: context,
                   massage: state.message,
-                  okFunction: () { loginViewModel.goToHome(context);});
-             } else if (state is LoadingLoginState) {
+                  okFunction: () {
+                    loginViewModel.goToHome(context);
+                  });
+            } else if (state is LoadingLoginState) {
               DailogUtilis.showLoading(context: context, message: "Loading...");
             }
           },
@@ -113,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ForgetPassword(),
+                              builder: (context) => const ForgetPassword(),
                             ));
                           },
                           child: Text(
