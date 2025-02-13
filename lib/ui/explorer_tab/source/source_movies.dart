@@ -41,70 +41,55 @@ class _SourceMoviesState extends State<SourceMovies>
           } else if (state is SucessSourceMovies) {
             print('sucesss');
 
-            if (sourceMoviesViewmodel.moviesList.isEmpty) {
-              return const Center(child: Text("No movies available."));
-            } else {
-              _tabController = TabController(
-                  length: sourceMoviesViewmodel.genres.length, vsync: this);
+            _tabController = TabController(
+                length: sourceMoviesViewmodel.genres.length, vsync: this);
 
-              return Column(
-                children: [
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  Container(
-                    child: TabBar(
-                        controller: _tabController,
-                        onTap: (index) {
-                          sourceMoviesViewmodel.changIndex(index);
+            return Column(
+              children: [
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Container(
+                  child: TabBar(
+                      controller: _tabController,
+                      onTap: (index) {
+                        sourceMoviesViewmodel.changIndex(index);
+                      },
+                      tabAlignment: TabAlignment.start,
+                      isScrollable: true,
+                      indicatorColor: Colors.transparent,
+                      tabs: sourceMoviesViewmodel.genres
+                          .asMap()
+                          .entries
+                          .map((entry) {
+                        int index = entry.key;
+                        String genre = entry.value;
 
-                          // sourceMoviesViewmodel.changIndex(index);
-                          print("index $sourceMoviesViewmodel.selectedIndex");
-                          print(
-                              "sindex ${sourceMoviesViewmodel.selectedIndex}");
-                        },
-                        tabAlignment: TabAlignment.start,
-                        isScrollable: true,
-                        indicatorColor: Colors.transparent,
-                        tabs: sourceMoviesViewmodel.genres
-                            .asMap()
-                            .entries
-                            .map((entry) {
-                          int index = entry.key;
-                          String genre = entry.value;
-
-                          return sourceMoviesViewmodel.selectedIndex == index
-                              ? SelectedTab(
-                                  text: sourceMoviesViewmodel.genres[
-                                      sourceMoviesViewmodel.selectedIndex],
-                                  width: width,
-                                  height: height,
-                                )
-                              : UnSelectedTab(
-                                  text: genre,
-                                  width: width,
-                                  height: height,
-                                );
-                        }).toList()),
-                  ),
-                  SizedBox(
-                    height: height * 0.02,
-                  ),
-                  MoviesWidget(
-                    selectedGeners: sourceMoviesViewmodel
-                        .genres[sourceMoviesViewmodel.selectedIndex],
-                    height: height,
-                    width: width,
-                    moviesList: sourceMoviesViewmodel.moviesList
-                        .where((movie) =>
-                            movie.genres?.contains(sourceMoviesViewmodel
-                                .genres[sourceMoviesViewmodel.selectedIndex]) ??
-                            false)
-                        .toList(),
-                  ),
-                ],
-              );
-            }
+                        return sourceMoviesViewmodel.selectedIndex == index
+                            ? SelectedTab(
+                                text: sourceMoviesViewmodel.genres[
+                                    sourceMoviesViewmodel.selectedIndex],
+                                width: width,
+                                height: height,
+                              )
+                            : UnSelectedTab(
+                                text: genre,
+                                width: width,
+                                height: height,
+                              );
+                      }).toList()),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                MoviesWidget(
+                  selectedGeners: sourceMoviesViewmodel
+                      .genres[sourceMoviesViewmodel.selectedIndex],
+                  height: height,
+                  width: width,
+                ),
+              ],
+            );
 
             /*  */
           } else {

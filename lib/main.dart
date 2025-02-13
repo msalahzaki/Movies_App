@@ -4,6 +4,7 @@ import 'package:movies_app/auth/login/cubit/login_view_model.dart';
 import 'package:movies_app/auth/login/login_screen.dart';
 import 'package:movies_app/cubit/language_states.dart';
 import 'package:movies_app/ui/Splash/splash_Screen.dart';
+import 'package:movies_app/ui/movies/cubit/movies_view_model.dart';
 
 import 'package:movies_app/ui/onBoarding/onBoarding_screen.dart';
 import 'package:movies_app/ui/onBoarding/start_screen.dart';

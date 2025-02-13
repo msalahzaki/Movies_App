@@ -9,12 +9,10 @@ import 'package:movies_app/utils/app_styles.dart';
 import 'cubit/movies_states.dart';
 
 class MoviesWidget extends StatefulWidget {
-  final List<Movies> moviesList;
   String selectedGeners;
   MoviesWidget(
       {super.key,
       required this.selectedGeners,
-      required this.moviesList,
       required double height,
       required double width});
 
@@ -32,6 +30,14 @@ class _MoviesWidgetState extends State<MoviesWidget> {
   }
 
   @override
+  void didUpdateWidget(covariant MoviesWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.selectedGeners != oldWidget.selectedGeners) {
+      moviesViewModel.getMovies(widget.selectedGeners);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -46,21 +52,24 @@ class _MoviesWidgetState extends State<MoviesWidget> {
               style: AppStyles.normal16gray,
             );
           } else if (state is SucessMovies) {
-            if (widget.moviesList.isEmpty) {
-              return const Center(
-                child: Text("No movies available"),
+            if (state.moviesResponse.data!.movies!.isEmpty) {
+              return Center(
+                child: Text(
+                  "No movies available",
+                  style: AppStyles.bold14primary,
+                ),
               );
             } else {
               print('sucesss');
 
               return Expanded(
                 child: GridView.builder(
-                  itemCount: widget.moviesList.length,
+                  itemCount: state.moviesResponse.data!.movies!.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, mainAxisSpacing: height * 0.01),
                   itemBuilder: (context, index) {
                     return MovieItem(
-                        moviesobj: widget.moviesList[index],
+                        moviesobj: state.moviesResponse.data!.movies![index],
                         width: width,
                         height: height);
                   },
