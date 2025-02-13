@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:movies_app/api/api_const.dart';
 import 'package:movies_app/api/end_points.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_app/model/FavoriteResponse.dart';
 import 'package:movies_app/model/user_model.dart';
 import 'package:movies_app/model/user_profile.dart';
 import '../model/MoviesResponse.dart';
@@ -138,6 +139,25 @@ class ApiManger {
       return -1;
     }
 
+  }
+  static Future<FavoriteResponse> getAllFavoriteMovies({required String token}) async {
+    try {
+      var response = await http.get(
+        Uri.https(ApiConst.baseAuthURL,EndPoints.favoritesAll),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+      if (response.statusCode == 200) {
+        return FavoriteResponse.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception('Failed to load favorite movies. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching favorite movies: $e');
+      throw Exception(e.toString());
+    }
   }
 
 
