@@ -25,12 +25,14 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  ProfileTabViewmodel profileTabViewModel = ProfileTabViewmodel();
   WatchListViewModel watchListViewModel = WatchListViewModel();
   HistoryTabViewModel historyTabViewModel = HistoryTabViewModel();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    profileTabViewModel.selectedIndex = 0;
     watchListViewModel.getFavorites();
     historyTabViewModel.getAllMoviesFromHistory();
   }
@@ -38,9 +40,7 @@ class _ProfileTabState extends State<ProfileTab> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    ProfileTabViewmodel profileTabViewModel = BlocProvider.of<ProfileTabViewmodel>(context);
     profileTabViewModel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
-
     return Scaffold(
       backgroundColor: AppColor.semiBlack,
       body: SafeArea(
