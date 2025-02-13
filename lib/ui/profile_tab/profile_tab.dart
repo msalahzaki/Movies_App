@@ -4,6 +4,8 @@ import 'package:movies_app/auth/login/cubit/login_view_model.dart';
 import 'package:movies_app/auth/login/login_screen.dart';
 import 'package:movies_app/ui/profile_tab/cubit/profile_tab_states.dart';
 import 'package:movies_app/ui/profile_tab/cubit/profile_tab_viewModel.dart';
+import 'package:movies_app/ui/profile_tab/history_tab/cubit/history_tab_states.dart';
+import 'package:movies_app/ui/profile_tab/history_tab/cubit/history_tab_view_model.dart';
 import 'package:movies_app/ui/profile_tab/history_tab/history_tab.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/update_profile.dart';
 import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_states.dart';
@@ -24,11 +26,13 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   WatchListViewModel watchListViewModel = WatchListViewModel();
+  HistoryTabViewModel historyTabViewModel = HistoryTabViewModel();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     watchListViewModel.getFavorites();
+    historyTabViewModel.getAllMoviesFromHistory();
   }
   @override
   Widget build(BuildContext context) {
@@ -87,7 +91,7 @@ class _ProfileTabState extends State<ProfileTab> {
                     BlocBuilder<WatchListViewModel,WatchListStates>(
                       bloc: watchListViewModel,
                       builder: (context, state) {
-                        if(state is LoadingLoginState){
+                        if(state is WatchListLoadingState){
                           return const CircularProgressIndicator(
                                   color: AppColor.orange,
                                 );
@@ -116,10 +120,40 @@ class _ProfileTabState extends State<ProfileTab> {
                     ),
                   ],
                 ),
-                Text( textAlign: TextAlign.center,
-                  "10 \n History",
-                  style: AppStyles.bold24white,
-                )
+                Column(
+                  children: [
+                    BlocBuilder<HistoryTabViewModel,HistoryTabStates>(
+                      bloc: historyTabViewModel,
+                      builder: (context, state) {
+                        if(state is HistoryTabLoadingState){
+                          return const CircularProgressIndicator(
+                            color: AppColor.orange,
+                          );
+                        }else if(state is HistoryTabEmptyState){
+                          return Text('0',style: AppStyles.bold24white,);
+                        }else if(state is WatchListErrorState){
+                          return Text('0',style: AppStyles.bold24white,);
+                        }
+                        else if (state is HistoryTabSuccessState){
+                          return Text('${historyTabViewModel.historyList.length}',
+                            style: AppStyles.bold24white,);
+                        }else{
+                          return const CircularProgressIndicator(
+                            color: AppColor.orange,
+                          );
+                        }
+                      },
+                      // child: Text(textAlign: TextAlign.center,
+                      //   "12",
+                      //   style: AppStyles.bold24white,
+                      // ),
+                    ),
+                    Text(textAlign: TextAlign.center,
+                      "History",
+                      style: AppStyles.bold24white,
+                    ),
+                  ],
+                ),
               ],
             ),
               SizedBox(

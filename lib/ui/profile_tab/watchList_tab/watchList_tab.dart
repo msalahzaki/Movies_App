@@ -62,35 +62,42 @@ class _WatchlistTabState extends State<WatchlistTab> {
         else if (state is WatchListSuccessState){
           return Expanded(
             child: Scaffold(
-                body: GridView.builder(
-                  padding: EdgeInsetsDirectional.symmetric(
-                    horizontal: width * 0.037,
-                    vertical: height * 0.025,
+                body: RefreshIndicator(
+                  onRefresh: viewModel.getFavorites,
+                  color: AppColor.orange,
+                  backgroundColor: AppColor.transparent,
+                  child: GridView.builder(
+                    padding: EdgeInsetsDirectional.symmetric(
+                      horizontal: width * 0.037,
+                      vertical: height * 0.025,
+                    ),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        childAspectRatio: 61/90,
+                        mainAxisSpacing: height * 0.017,
+                        crossAxisSpacing: width * 0.037
+                    ),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MovieDetailsScreen(
+                                        movieId: viewModel.favoriteMoviesList[index].movieId.toString()),
+                              )).then((value) {
+                                viewModel.getFavorites();
+                              },);
+                        },
+                        child: MovieProfileItem(
+                          imageUrl: viewModel.favoriteMoviesList[index].imageURL,
+                          rate: viewModel.favoriteMoviesList[index].rating,
+                        ),
+                      );
+                    },
+                    itemCount: viewModel.favoriteMoviesList.length,
                   ),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 61/90,
-                      mainAxisSpacing: height * 0.017,
-                      crossAxisSpacing: width * 0.037
-                  ),
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  MovieDetailsScreen(
-                                      movieId: viewModel.favoriteMoviesList[index].movieId.toString()),
-                            ));
-                      },
-                      child: MovieProfileItem(
-                        imageUrl: viewModel.favoriteMoviesList[index].imageURL,
-                        rate: viewModel.favoriteMoviesList[index].rating,
-                      ),
-                    );
-                  },
-                  itemCount: viewModel.favoriteMoviesList.length,
                 )
             ),
           );
