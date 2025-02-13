@@ -11,7 +11,7 @@ class WatchListViewModel extends Cubit<WatchListStates> {
   List<FavoriteMove> favoriteMoviesList = [];
   String? userToken;
 
-  Future<void> _getFavoriteMovies({required String? token}) async {
+  Future<void> _fetchData({required String? token}) async {
     try {
       emit(WatchListLoadingState());
 
@@ -35,10 +35,10 @@ class WatchListViewModel extends Cubit<WatchListStates> {
     emit(WatchListGetTokenState());
   }
 
-  Future<void> fetchData() async {
+  Future<void> getFavorites() async {
     await _getUserToken();
     if (userToken != null) {
-      _getFavoriteMovies(token: userToken);
+      _fetchData(token: userToken);
     }
   }
 }

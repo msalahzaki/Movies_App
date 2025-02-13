@@ -21,7 +21,7 @@ class _WatchlistTabState extends State<WatchlistTab> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.fetchData();
+    viewModel.getFavorites();
   }
 
   @override

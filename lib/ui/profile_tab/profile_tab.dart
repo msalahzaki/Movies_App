@@ -28,7 +28,7 @@ class _ProfileTabState extends State<ProfileTab> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    watchListViewModel.fetchData();
+    watchListViewModel.getFavorites();
   }
   @override
   Widget build(BuildContext context) {
@@ -48,34 +48,39 @@ class _ProfileTabState extends State<ProfileTab> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                BlocBuilder<ProfileTabViewmodel, ProfileTabStates>(
-                  bloc: profileTabViewModel..getProfile(token: profileTabViewModel.loginViewModel?.userToken),
-                  builder: (context, state) {
-                    if (state is GetProfileLoadingState) {
-                      return CircularProgressIndicator(color: AppColor.orange,);
-                    } else  {
-                      return Column(
-                        children: [
-                          CircleAvatar(
-                            maxRadius: 50,
-                            child: Image.asset(
-                              AppAssets.avatarImages[
-                              (profileTabViewModel.currentUser!.data!.avaterId ?? 1) -
-                                  1],
+                SizedBox(
+                  height: height * 0.14,
+                  width: width * 0.3720,
+                  child: BlocBuilder<ProfileTabViewmodel, ProfileTabStates>(
+                    bloc: profileTabViewModel..getProfile(token: profileTabViewModel.loginViewModel?.userToken),
+                    builder: (context, state) {
+                      if (state is GetProfileLoadingState) {
+                        return Center(child: CircularProgressIndicator(color: AppColor.orange,
+                        strokeWidth: 3,));
+                      } else  {
+                        return Column(
+                          children: [
+                            CircleAvatar(
+                              maxRadius: 50,
+                              child: Image.asset(
+                                AppAssets.avatarImages[
+                                (profileTabViewModel.currentUser!.data!.avaterId ?? 1) -
+                                    1],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            width: width * .4,
-                            child: Text(
-                              profileTabViewModel.currentUser!.data!.name ?? "",
-                              style: AppStyles.bold20white,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          )
-                        ],
-                      );
-                    }
-                  },
+                            SizedBox(
+                              width: width * .4,
+                              child: Text(
+                                profileTabViewModel.currentUser!.data!.name ?? "",
+                                style: AppStyles.bold20white,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ],
+                        );
+                      }
+                    },
+                  ),
                 ),
                 Column(
                   children: [
