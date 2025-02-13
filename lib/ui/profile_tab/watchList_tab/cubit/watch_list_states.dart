@@ -9,3 +9,4 @@ class WatchListErrorState extends WatchListStates{
   WatchListErrorState({required this.errorMessage});
 }
 class WatchListInitialState extends WatchListStates{}
+class WatchListGetTokenState extends WatchListStates{}

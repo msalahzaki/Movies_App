@@ -6,20 +6,37 @@ import 'package:movies_app/ui/profile_tab/cubit/profile_tab_states.dart';
 import 'package:movies_app/ui/profile_tab/cubit/profile_tab_viewModel.dart';
 import 'package:movies_app/ui/profile_tab/history_tab/history_tab.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/update_profile.dart';
+import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_states.dart';
+import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_view_model.dart';
 import 'package:movies_app/ui/profile_tab/watchList_tab/watchList_tab.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 
-class ProfileTab extends StatelessWidget {
+import '../../auth/login/cubit/login_states.dart';
+
+class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
 
+  @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
+  WatchListViewModel watchListViewModel = WatchListViewModel();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    watchListViewModel.fetchData();
+  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     ProfileTabViewmodel profileTabViewModel = BlocProvider.of<ProfileTabViewmodel>(context);
     profileTabViewModel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
+
     return Scaffold(
       backgroundColor: AppColor.semiBlack,
       body: SafeArea(
@@ -60,9 +77,39 @@ class ProfileTab extends StatelessWidget {
                     }
                   },
                 ),
-                Text(textAlign: TextAlign.center,
-                  "12 \n Wish List",
-                  style: AppStyles.bold24white,
+                Column(
+                  children: [
+                    BlocBuilder<WatchListViewModel,WatchListStates>(
+                      bloc: watchListViewModel,
+                      builder: (context, state) {
+                        if(state is LoadingLoginState){
+                          return const CircularProgressIndicator(
+                                  color: AppColor.orange,
+                                );
+                        }else if(state is WatchListEmptyState){
+                          return Text('0',style: AppStyles.bold24white,);
+                        }else if(state is WatchListErrorState){
+                          return Text('0',style: AppStyles.bold24white,);
+                        }
+                        else if (state is WatchListSuccessState){
+                          return Text('${watchListViewModel.favoriteMoviesList.length}',
+                          style: AppStyles.bold24white,);
+                        }else{
+                          return const CircularProgressIndicator(
+                            color: AppColor.orange,
+                          );
+                        }
+                      },
+                      // child: Text(textAlign: TextAlign.center,
+                      //   "12",
+                      //   style: AppStyles.bold24white,
+                      // ),
+                    ),
+                    Text(textAlign: TextAlign.center,
+                      "Wish List",
+                      style: AppStyles.bold24white,
+                    ),
+                  ],
                 ),
                 Text( textAlign: TextAlign.center,
                   "10 \n History",

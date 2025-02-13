@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/auth/login/cubit/login_states.dart';
-import 'package:movies_app/auth/login/cubit/login_view_model.dart';
 import 'package:movies_app/ui/profile_tab/profile_widgets/movie_profile_item.dart';
 import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_states.dart';
 import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_view_model.dart';
@@ -18,14 +17,19 @@ class WatchlistTab extends StatefulWidget {
 
 class _WatchlistTabState extends State<WatchlistTab> {
   WatchListViewModel viewModel = WatchListViewModel();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    viewModel.fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    viewModel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder<WatchListViewModel,WatchListStates>(
-      bloc: viewModel..getFavoriteList(token: viewModel.loginViewModel?.userToken),
+      bloc: viewModel,
       builder: (context, state) {
         if(state is LoadingLoginState){
           return const Expanded(

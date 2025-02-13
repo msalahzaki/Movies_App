@@ -1,17 +1,17 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/api/api_manger.dart';
-import 'package:movies_app/auth/login/cubit/login_view_model.dart';
 import 'package:movies_app/model/FavoriteResponse.dart';
 import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_states.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WatchListViewModel extends Cubit<WatchListStates> {
 
   WatchListViewModel() : super(WatchListInitialState());
 
   List<FavoriteMove> favoriteMoviesList = [];
-  LoginViewModel? loginViewModel ;
+  String? userToken;
 
-  Future<void> getFavoriteList({required String? token}) async {
+  Future<void> _getFavoriteMovies({required String? token}) async {
     try {
       emit(WatchListLoadingState());
 
@@ -25,6 +25,20 @@ class WatchListViewModel extends Cubit<WatchListStates> {
       }
     } catch (e) {
       emit(WatchListErrorState(errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> _getUserToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token =  prefs.getString('user_token');
+    userToken =  token;
+    emit(WatchListGetTokenState());
+  }
+
+  Future<void> fetchData() async {
+    await _getUserToken();
+    if (userToken != null) {
+      _getFavoriteMovies(token: userToken);
     }
   }
 }
