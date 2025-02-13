@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/auth/login/cubit/login_states.dart';
+import 'package:movies_app/ui/movies/movie_details_screen.dart';
 import 'package:movies_app/ui/profile_tab/profile_widgets/movie_profile_item.dart';
 import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_states.dart';
 import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_view_model.dart';
@@ -73,9 +74,20 @@ class _WatchlistTabState extends State<WatchlistTab> {
                       crossAxisSpacing: width * 0.037
                   ),
                   itemBuilder: (context, index) {
-                    return MovieProfileItem(
-                      imageUrl: viewModel.favoriteMoviesList[index].imageURL,
-                      rate: viewModel.favoriteMoviesList[index].rating,
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MovieDetailsScreen(
+                                      movieId: viewModel.favoriteMoviesList[index].movieId.toString()),
+                            ));
+                      },
+                      child: MovieProfileItem(
+                        imageUrl: viewModel.favoriteMoviesList[index].imageURL,
+                        rate: viewModel.favoriteMoviesList[index].rating,
+                      ),
                     );
                   },
                   itemCount: viewModel.favoriteMoviesList.length,
