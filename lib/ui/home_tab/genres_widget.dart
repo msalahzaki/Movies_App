@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/ui/movies/cubit/genres_states.dart';
-import 'package:movies_app/ui/movies/cubit/genres_view_model.dart';
+import 'package:movies_app/ui/home_tab/cubit/genres_states.dart';
+import 'package:movies_app/ui/home_tab/cubit/genres_view_model.dart';
+import 'package:movies_app/ui/movies/movie_details_screen.dart';
+
 import 'package:movies_app/utils/app_assets.dart';
 
 import '../../utils/app_color.dart';
 import '../../utils/app_styles.dart';
-import 'movie_poster_rate_widget.dart';
+import '../movies/movie_poster_rate_widget.dart';
 
 class GenresWidget extends StatefulWidget {
   const GenresWidget({super.key});
@@ -85,10 +87,14 @@ class _GenresWidgetState extends State<GenresWidget> {
                     },
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return MoviePosterRateWidget(
-                          imagePath: state.moviesList[index].largeCoverImage ??
-                              AppAssets.errorImage,
-                          rate: state.moviesList[index].rating ?? 0);
+                      return InkWell(onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsScreen(movieId: state.moviesList[index].id!.toString()),));
+                      },
+                        child: MoviePosterRateWidget(
+                            imagePath: state.moviesList[index].largeCoverImage ??
+                                AppAssets.errorImage,
+                            rate: state.moviesList[index].rating ?? 0),
+                      );
                     },
                     itemCount: state.moviesList.length,
                   ),
