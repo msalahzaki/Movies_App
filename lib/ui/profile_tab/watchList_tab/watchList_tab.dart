@@ -32,7 +32,7 @@ class _WatchlistTabState extends State<WatchlistTab> {
     return BlocBuilder<WatchListViewModel,WatchListStates>(
       bloc: viewModel,
       builder: (context, state) {
-        if(state is LoadingLoginState){
+        if(state is WatchListLoadingState){
           return const Expanded(
             child: Scaffold(
               body: Center(

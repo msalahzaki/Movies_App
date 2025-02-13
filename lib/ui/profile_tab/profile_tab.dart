@@ -49,7 +49,7 @@ class _ProfileTabState extends State<ProfileTab> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
-                  height: height * 0.14,
+                  height: height * 0.15,
                   width: width * 0.3720,
                   child: BlocBuilder<ProfileTabViewmodel, ProfileTabStates>(
                     bloc: profileTabViewModel..getProfile(token: profileTabViewModel.loginViewModel?.userToken),
