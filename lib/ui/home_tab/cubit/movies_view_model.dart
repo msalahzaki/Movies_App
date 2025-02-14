@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/api/api_manger.dart';
+import 'package:movies_app/ui/home_tab/cubit/movies_states.dart';
 
-import 'package:movies_app/ui/movies/cubit/movies_states.dart';
 
 class MoviesViewModel extends Cubit<MoviesStates> {
   MoviesViewModel() : super(MoviesLoadingState());
