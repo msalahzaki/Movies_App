@@ -27,7 +27,7 @@ class HomeScreenBody extends StatelessWidget {
 
   final List<Widget> tabs = [
     const HomeTab(),
-    const SearchTab(),
+     SearchTab(),
     ExplorerTab(),
     const ProfileTab(),
   ];
