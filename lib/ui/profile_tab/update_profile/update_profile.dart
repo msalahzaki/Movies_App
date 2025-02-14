@@ -13,9 +13,7 @@ import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/custom_dailog.dart';
 
 class UpdateProfile extends StatelessWidget {
-
-
-  const UpdateProfile( {super.key});
+  const UpdateProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,40 +24,44 @@ class UpdateProfile extends StatelessWidget {
         title: const Text("Update Profile"),
       ),
       body: BlocProvider(
-        create:(context) => UpdateProfileViewmodel(),
-        child: BlocConsumer<UpdateProfileViewmodel,UpdateProfileStates>(
+        create: (context) => UpdateProfileViewmodel(),
+        child: BlocConsumer<UpdateProfileViewmodel, UpdateProfileStates>(
           listener: (context, state) {
-            if (state is UpdateProfileChangeAvatarState){
+            if (state is UpdateProfileChangeAvatarState) {
               Navigator.pop(context);
-            }
-            else if (state is UpdateProfileLoadingState){
+            } else if (state is UpdateProfileLoadingState) {
               return CustomDailog.showLoading(context);
-            }
-            else if (state is UpdateProfileErrorState){
+            } else if (state is UpdateProfileErrorState) {
               Navigator.pop(context);
-              return CustomDailog.showAwesomeErrorMessageDialog(context: context,massage:  state.errorMassage,okFunction: (){} );
-            }
-            else if (state is UpdateProfileSussesState){
+              return CustomDailog.showAwesomeErrorMessageDialog(
+                  context: context,
+                  massage: state.errorMassage,
+                  okFunction: () {});
+            } else if (state is UpdateProfileSussesState) {
               Navigator.pop(context);
-              return CustomDailog.showAwesomeSuccessMessageDialog(context: context,massage: "Profile Update Successful",okFunction: (){} );
-            }
-            else if (state is DeleteProfileErrorState){
+              return CustomDailog.showAwesomeSuccessMessageDialog(
+                  context: context,
+                  massage: "Profile Update Successful",
+                  okFunction: () {});
+            } else if (state is DeleteProfileErrorState) {
               Navigator.pop(context);
-              return CustomDailog.showAwesomeErrorMessageDialog(context: context,massage:  state.errorMassage);
-            }
-            else if (state is DeleteProfileSuccessState){
+              return CustomDailog.showAwesomeErrorMessageDialog(
+                  context: context, massage: state.errorMassage);
+            } else if (state is DeleteProfileSuccessState) {
               Navigator.pop(context);
-              CustomDailog.showMessageDailog(context,message: "Profile Update Successful",firstButtonLabel: "ok");
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
-
+              CustomDailog.showMessageDailog(context,
+                  message: "Profile Update Successful", firstButtonLabel: "ok");
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => const LoginScreen(),
+              ));
             }
           },
-
           builder: (context, state) {
             viewmodel = context.read<UpdateProfileViewmodel>();
-            viewmodel.profileTabViewmodel = BlocProvider.of<ProfileTabViewmodel>(context);
+            viewmodel.profileTabViewmodel =
+                BlocProvider.of<ProfileTabViewmodel>(context);
             viewmodel.initProfileData();
-            return  Form(
+            return Form(
               key: viewmodel.formKey,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -75,10 +77,9 @@ class UpdateProfile extends StatelessWidget {
                             return ChooseAvatar(viewmodel);
                           },
                         );
-
                       },
-                      icon: Image.asset("assets/images/avatar${viewmodel.profileAvatar}.png"
-                        ,
+                      icon: Image.asset(
+                        "assets/images/avatar${viewmodel.profileAvatar}.png",
                         height: size.height * .15,
                         fit: BoxFit.cover,
                       ),
@@ -95,7 +96,7 @@ class UpdateProfile extends StatelessWidget {
                     ),
                     SizedBox(height: size.height * .02),
                     TextFormField(
-                      validator: (text){
+                      validator: (text) {
                         return viewmodel.validatePhoneNumber(text);
                       },
                       keyboardType: TextInputType.phone,
@@ -109,7 +110,8 @@ class UpdateProfile extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, ResetPassword.routeName);
+                            Navigator.pushNamed(
+                                context, ResetPassword.routeName);
                           },
                           child: Text(
                             "Reset Password",
@@ -123,7 +125,8 @@ class UpdateProfile extends StatelessWidget {
                       onPressed: () {
                         ConfirmDeleteDialog.show(context, viewmodel);
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: AppColor.red),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColor.red),
                       child: Text(
                         "Delete Account",
                         style: AppStyles.normal20white,
@@ -143,9 +146,7 @@ class UpdateProfile extends StatelessWidget {
                 ),
               ),
             );
-
           },
-
         ),
       ),
     );

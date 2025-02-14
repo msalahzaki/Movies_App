@@ -15,7 +15,6 @@ import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 
-import '../../auth/login/cubit/login_states.dart';
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
@@ -25,17 +24,22 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
-  ProfileTabViewmodel profileTabViewModel = ProfileTabViewmodel();
+  late ProfileTabViewmodel profileTabViewModel ;
+
   WatchListViewModel watchListViewModel = WatchListViewModel();
   HistoryTabViewModel historyTabViewModel = HistoryTabViewModel();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    profileTabViewModel = BlocProvider.of<ProfileTabViewmodel>(context);
     profileTabViewModel.selectedIndex = 0;
     watchListViewModel.getFavorites();
     historyTabViewModel.getAllMoviesFromHistory();
   }
+
+
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -59,7 +63,7 @@ class _ProfileTabState extends State<ProfileTab> {
                     bloc: profileTabViewModel..getProfile(token: profileTabViewModel.loginViewModel?.userToken),
                     builder: (context, state) {
                       if (state is GetProfileLoadingState) {
-                        return Center(child: CircularProgressIndicator(color: AppColor.orange,
+                        return const Center(child: CircularProgressIndicator(color: AppColor.orange,
                         strokeWidth: 3,));
                       } else  {
                         return Column(
@@ -185,7 +189,7 @@ class _ProfileTabState extends State<ProfileTab> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColor.red),
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen(),));
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen(),));
                           },
                           child: Text(
                             "Exit > ",
@@ -220,7 +224,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 bloc: profileTabViewModel,
                 builder: (context, state) {
                 return profileTabViewModel.selectedIndex == 0 ?
-                    WatchlistTab() : HistoryTab();
+                    WatchlistTab() : const HistoryTab();
               },
               )
             ],

@@ -1,5 +1,3 @@
-import 'package:movies_app/model/user_model.dart';
-
 abstract class LoginStates {}
 
 class LoadingLoginState extends LoginStates {}

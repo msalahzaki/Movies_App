@@ -1,10 +1,12 @@
 /// message : "Profile fetched successfully"
 /// data : {"_id":"679b5f98d981b4ed9b2b6b57","email":"msalahzaki@gmail.com","password":"$2b$10$xoLtYVqjMWygiKay6ieXDOYVp09SdTs6bRHkzCi2rE4.nKXadmI06","name":"Mohamed Salah","phone":"+201234567889","avaterId":2,"createdAt":"2025-01-30T11:16:40.316Z","updatedAt":"2025-01-30T11:16:40.316Z","__v":0}
+library;
 
 class UserProfile {
   UserProfile({
-      this.message, 
-      this.data,});
+    this.message,
+    this.data,
+  });
 
   UserProfile.fromJson(dynamic json) {
     message = json['message'];
@@ -21,7 +23,6 @@ class UserProfile {
     }
     return map;
   }
-
 }
 
 /// _id : "679b5f98d981b4ed9b2b6b57"
@@ -36,15 +37,16 @@ class UserProfile {
 
 class Data {
   Data({
-      this.id, 
-      this.email, 
-      this.password, 
-      this.name, 
-      this.phone, 
-      this.avaterId, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.v,});
+    this.id,
+    this.email,
+    this.password,
+    this.name,
+    this.phone,
+    this.avaterId,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
 
   Data.fromJson(dynamic json) {
     id = json['_id'];
@@ -80,5 +82,4 @@ class Data {
     map['__v'] = v;
     return map;
   }
-
 }
