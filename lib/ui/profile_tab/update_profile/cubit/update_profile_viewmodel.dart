@@ -70,6 +70,7 @@ class UpdateProfileViewmodel extends Cubit<UpdateProfileStates> {
   }
 
   initProfileData() {
+
     if (profileAvatar == -1) {
       profileAvatar = profileTabViewmodel.currentUser!.data!.avaterId ?? 1;
       nameEditingController.text =

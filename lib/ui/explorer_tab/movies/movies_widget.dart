@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/model/MoviesResponse.dart';
-import 'package:movies_app/ui/explorer_tab/explorer_tab.dart';
+
 import 'package:movies_app/ui/explorer_tab/movies/MovieItem.dart';
 import 'package:movies_app/ui/explorer_tab/movies/cubit/movies_viewModel.dart';
-import 'package:movies_app/ui/movies/cubit/movies_view_model.dart';
+import 'package:movies_app/ui/movies/movie_details_screen.dart';
+
 import 'package:movies_app/utils/app_styles.dart';
 import 'cubit/movies_states.dart';
 
@@ -68,16 +68,19 @@ class _MoviesWidgetState extends State<MoviesWidget> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, mainAxisSpacing: height * 0.01),
                   itemBuilder: (context, index) {
-                    return MovieItem(
-                        moviesobj: state.moviesResponse.data!.movies![index],
-                        width: width,
-                        height: height);
+                    return InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  MovieDetailsScreen(movieId:state.moviesResponse.data!.movies![index].id.toString() ,),)),
+                      child: MovieItem(
+                          moviesobj: state.moviesResponse.data!.movies![index],
+                          width: width,
+                          height: height),
+                    );
                   },
                 ),
               );
             }
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 color: Colors.grey,
               ),

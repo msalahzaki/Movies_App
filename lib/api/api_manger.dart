@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:movies_app/api/api_const.dart';
 import 'package:movies_app/api/end_points.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_app/model/FavoriteResponse.dart';
 import 'package:movies_app/model/user_model.dart';
 import 'package:movies_app/model/user_profile.dart';
 import '../model/MoviesResponse.dart';

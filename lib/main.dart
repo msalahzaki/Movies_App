@@ -62,12 +62,12 @@ class MyApp extends StatelessWidget {
           locale: Locale(locale),
           initialRoute: LoginScreen.loginScreenId,
           routes: {
-            SplashScreen.routeName: (context) => SplashScreen(),
-            StartScreen.routeName: (context) => StartScreen(),
-            OnboardingScreen.routeName: (context) => OnboardingScreen(),
+            SplashScreen.routeName: (context) => const SplashScreen(),
+            StartScreen.routeName: (context) => const StartScreen(),
+            OnboardingScreen.routeName: (context) => const OnboardingScreen(),
             Home.homeScreenId: (context) => const Home(),
             LoginScreen.loginScreenId: (context) => const LoginScreen(),
-            ResetPassword.routeName: (context) => ResetPassword()
+            ResetPassword.routeName: (context) => const ResetPassword()
           },
         );
       },
