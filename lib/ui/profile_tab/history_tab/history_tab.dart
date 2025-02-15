@@ -9,19 +9,19 @@ import '../../movies/movie_details_screen.dart';
 import '../profile_widgets/movie_profile_item.dart';
 
 class HistoryTab extends StatefulWidget {
-  const HistoryTab({super.key});
-
+   HistoryTab(this.viewModel,{super.key});
+  HistoryTabViewModel viewModel;
   @override
   State<HistoryTab> createState() => _HistoryTabState();
 }
 
 class _HistoryTabState extends State<HistoryTab> {
-  HistoryTabViewModel viewModel = HistoryTabViewModel();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.getAllMoviesFromHistory();
+    widget.viewModel.getAllMoviesFromHistory();
   }
 
   @override
@@ -29,7 +29,7 @@ class _HistoryTabState extends State<HistoryTab> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder<HistoryTabViewModel,HistoryTabStates>(
-      bloc: viewModel,
+      bloc: widget.viewModel,
       builder: (context, state) {
         if(state is HistoryTabLoadingState){
           return const Expanded(
@@ -80,16 +80,16 @@ class _HistoryTabState extends State<HistoryTab> {
                             MaterialPageRoute(
                               builder: (context) =>
                                   MovieDetailsScreen(
-                                      movieId: viewModel.historyList[index].id.toString()),
+                                      movieId: widget.viewModel.historyList[index].id.toString()),
                             ));
                       },
                       child: MovieProfileItem(
-                        imageUrl: viewModel.historyList[index].largeCoverImage,
-                        rate: viewModel.historyList[index].rating,
+                        imageUrl: widget.viewModel.historyList[index].largeCoverImage,
+                        rate: widget.viewModel.historyList[index].rating,
                       ),
                     );
                   },
-                  itemCount: viewModel.historyList.length,
+                  itemCount: widget.viewModel.historyList.length,
                 )
             ),
           );

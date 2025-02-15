@@ -25,9 +25,9 @@ class ProfileTab extends StatefulWidget {
 
 class _ProfileTabState extends State<ProfileTab> {
   late ProfileTabViewmodel profileTabViewModel ;
-
   WatchListViewModel watchListViewModel = WatchListViewModel();
   HistoryTabViewModel historyTabViewModel = HistoryTabViewModel();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -224,7 +224,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 bloc: profileTabViewModel,
                 builder: (context, state) {
                 return profileTabViewModel.selectedIndex == 0 ?
-                    WatchlistTab() : const HistoryTab();
+                    WatchlistTab(watchListViewModel) :  HistoryTab(historyTabViewModel);
               },
               )
             ],

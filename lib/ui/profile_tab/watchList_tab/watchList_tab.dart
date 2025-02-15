@@ -10,19 +10,21 @@ import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 
 class WatchlistTab extends StatefulWidget {
-
-
+   WatchlistTab(this.viewModel);
+  final WatchListViewModel viewModel;
   @override
   State<WatchlistTab> createState() => _WatchlistTabState();
+
+
 }
 
 class _WatchlistTabState extends State<WatchlistTab> {
-  WatchListViewModel viewModel = WatchListViewModel();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    viewModel.getFavorites();
+    widget.viewModel.getFavorites();
   }
 
   @override
@@ -30,7 +32,7 @@ class _WatchlistTabState extends State<WatchlistTab> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return BlocBuilder<WatchListViewModel,WatchListStates>(
-      bloc: viewModel,
+      bloc: widget.viewModel,
       builder: (context, state) {
         if(state is WatchListLoadingState){
           return const Expanded(
@@ -63,7 +65,7 @@ class _WatchlistTabState extends State<WatchlistTab> {
           return Expanded(
             child: Scaffold(
                 body: RefreshIndicator(
-                  onRefresh: viewModel.getFavorites,
+                  onRefresh: widget.viewModel.getFavorites,
                   color: AppColor.orange,
                   backgroundColor: AppColor.transparent,
                   child: GridView.builder(
@@ -85,18 +87,18 @@ class _WatchlistTabState extends State<WatchlistTab> {
                               MaterialPageRoute(
                                 builder: (context) =>
                                     MovieDetailsScreen(
-                                        movieId: viewModel.favoriteMoviesList[index].movieId.toString()),
+                                        movieId: widget.viewModel.favoriteMoviesList[index].movieId.toString()),
                               )).then((value) {
-                                viewModel.getFavorites();
+                            widget.viewModel.getFavorites();
                               },);
                         },
                         child: MovieProfileItem(
-                          imageUrl: viewModel.favoriteMoviesList[index].imageURL,
-                          rate: viewModel.favoriteMoviesList[index].rating,
+                          imageUrl: widget.viewModel.favoriteMoviesList[index].imageURL,
+                          rate: widget.viewModel.favoriteMoviesList[index].rating,
                         ),
                       );
                     },
-                    itemCount: viewModel.favoriteMoviesList.length,
+                    itemCount: widget.viewModel.favoriteMoviesList.length,
                   ),
                 )
             ),
