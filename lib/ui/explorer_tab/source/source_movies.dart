@@ -7,8 +7,8 @@ import 'package:movies_app/ui/explorer_tab/source/cubit/source_movies_states.dar
 import 'package:movies_app/ui/explorer_tab/source/cubit/source_movies_viewModel.dart';
 
 class SourceMovies extends StatefulWidget {
-  SourceMovies({super.key});
-
+  SourceMovies({this.selectedIndex=0 ,super.key});
+      int selectedIndex ;
   @override
   State<SourceMovies> createState() => _SourceMoviesState();
 }
@@ -22,7 +22,7 @@ class _SourceMoviesState extends State<SourceMovies>
   void initState() {
     // TODO: implement initState
     super.initState();
-    sourceMoviesViewmodel = SourceMoviesViewmodel();
+    sourceMoviesViewmodel = SourceMoviesViewmodel(selectedIndex:widget.selectedIndex );
     sourceMoviesViewmodel.getSources();
   }
 
@@ -43,48 +43,46 @@ class _SourceMoviesState extends State<SourceMovies>
 
             _tabController = TabController(
                 length: sourceMoviesViewmodel.genres.length, vsync: this);
-
+            _tabController.animateTo(widget.selectedIndex);
             return Column(
               children: [
                 SizedBox(
                   height: height * 0.02,
                 ),
-                Container(
-                  child: TabBar(
-                      controller: _tabController,
-                      onTap: (index) {
-                        sourceMoviesViewmodel.changIndex(index);
-                      },
-                      tabAlignment: TabAlignment.start,
-                      isScrollable: true,
-                      indicatorColor: Colors.transparent,
-                      tabs: sourceMoviesViewmodel.genres
-                          .asMap()
-                          .entries
-                          .map((entry) {
-                        int index = entry.key;
-                        String genre = entry.value;
+                TabBar(
+                    controller: _tabController,
+                    onTap: (index) {
+                      sourceMoviesViewmodel.changIndex(index);
+                    },
+                    tabAlignment: TabAlignment.start,
+                    isScrollable: true,
+                    indicatorColor: Colors.transparent,
+                    tabs: sourceMoviesViewmodel.genres
+                        .asMap()
+                        .entries
+                        .map((entry) {
+                      int index = entry.key;
+                      String genre = entry.value;
 
-                        return sourceMoviesViewmodel.selectedIndex == index
-                            ? SelectedTab(
-                                text: sourceMoviesViewmodel.genres[
-                                    sourceMoviesViewmodel.selectedIndex],
-                                width: width,
-                                height: height,
-                              )
-                            : UnSelectedTab(
-                                text: genre,
-                                width: width,
-                                height: height,
-                              );
-                      }).toList()),
-                ),
+                      return sourceMoviesViewmodel.selectedIndex == index
+                          ? SelectedTab(
+                              text: sourceMoviesViewmodel.genres[
+                                  sourceMoviesViewmodel.selectedIndex!],
+                              width: width,
+                              height: height,
+                            )
+                          : UnSelectedTab(
+                              text: genre,
+                              width: width,
+                              height: height,
+                            );
+                    }).toList()),
                 SizedBox(
                   height: height * 0.02,
                 ),
                 MoviesWidget(
                   selectedGeners: sourceMoviesViewmodel
-                      .genres[sourceMoviesViewmodel.selectedIndex],
+                      .genres[sourceMoviesViewmodel.selectedIndex!],
                   height: height,
                   width: width,
                 ),

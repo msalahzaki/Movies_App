@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/model/MoviesResponse.dart';
 import 'package:movies_app/ui/explorer_tab/source/source_movies.dart';
-import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 
 class ExplorerTab extends StatefulWidget {
-  ExplorerTab({super.key});
-
+   ExplorerTab({this.selectedIndex=0 ,super.key});
+  int selectedIndex ;
   @override
   State<ExplorerTab> createState() => _ExplorerTabState();
 }
 
 class _ExplorerTabState extends State<ExplorerTab> {
-  List<Movies>? movieList;
+  //List<Movies>? movieList;
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+   // var height = MediaQuery.of(context).size.height;
+    //var width = MediaQuery.of(context).size.width;
 
     return SafeArea(
-      child: SourceMovies(),
+      child: SourceMovies(selectedIndex:widget.selectedIndex ,),
     );
   }
 }
 
 class UnSelectedTab extends StatelessWidget {
-  String text;
+  final String text;
   UnSelectedTab({
     required this.text,
     super.key,
@@ -57,7 +56,7 @@ class UnSelectedTab extends StatelessWidget {
 }
 
 class SelectedTab extends StatelessWidget {
-  String text;
+  final String text;
 
   SelectedTab({
     required this.text,

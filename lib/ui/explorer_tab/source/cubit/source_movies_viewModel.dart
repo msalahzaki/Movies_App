@@ -5,8 +5,8 @@ import 'package:movies_app/model/genres_model.dart';
 import 'package:movies_app/ui/explorer_tab/source/cubit/source_movies_states.dart';
 
 class SourceMoviesViewmodel extends Cubit<SourceMoviesStates> {
-  SourceMoviesViewmodel() : super(IntialSourceMovies());
-  int selectedIndex = 0;
+  SourceMoviesViewmodel({this.selectedIndex = 0}) : super(IntialSourceMovies());
+   int? selectedIndex;
   List<String> genres = GenresModel.genresList;
   List<Movies> moviesList = []; // Store all movies
   List<Movies> filteredMovies = []; // Store filtered movies
@@ -14,7 +14,7 @@ class SourceMoviesViewmodel extends Cubit<SourceMoviesStates> {
   /// **Filter movies based on selected genre**
   void filterMoviesByGenre() {
     if (moviesList.isEmpty) return; // Ensure movies are loaded
-    String selectedGenre = genres[selectedIndex];
+    String selectedGenre = genres[selectedIndex?? 0];
 
     filteredMovies = moviesList
         .where((movie) => movie.genres?.contains(selectedGenre) ?? false)

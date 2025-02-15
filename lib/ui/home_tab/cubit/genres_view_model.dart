@@ -8,13 +8,14 @@ import 'package:movies_app/ui/home_tab/cubit/genres_states.dart';
 
 class GenresViewModel extends Cubit<GenresStates> {
   late String genre;
-
+late int randomIndex ;
   GenresViewModel() :super(GenresLoadingState());
 
   //todo: hold data / handle logic
 
   void getMoviesByGenre() async {
-    genre = GenresModel.genresList[Random().nextInt(24)];
+    randomIndex = Random().nextInt(24);
+    genre = GenresModel.genresList[randomIndex];
     try {
       emit(GenresLoadingState());
       var response = await ApiManger.getMoviesByGenre(genre);

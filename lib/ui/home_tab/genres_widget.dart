@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/cubit/bottomNavigation_cubit.dart';
+import 'package:movies_app/ui/explorer_tab/explorer_tab.dart';
+import 'package:movies_app/ui/explorer_tab/source/source_movies.dart';
 import 'package:movies_app/ui/home_tab/cubit/genres_states.dart';
 import 'package:movies_app/ui/home_tab/cubit/genres_view_model.dart';
 import 'package:movies_app/ui/movies/movie_details_screen.dart';
@@ -71,7 +74,12 @@ class _GenresWidgetState extends State<GenresWidget> {
                       style: AppStyles.normal20white,
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                         // Navigator.push(context, MaterialPageRoute(builder: (context) => ExplorerTab(selectedIndex: viewModel.randomIndex,),));
+
+                       BlocProvider.of<BottomNavigationCubit>(context).chanSelectedCategory( viewModel.randomIndex);
+                     //  BlocProvider.of<BottomNavigationCubit>(context).changeNavigationWidget(2);
+                        },
                         child: Text(
                           "See More ->",
                           style: AppStyles.normal16primary,

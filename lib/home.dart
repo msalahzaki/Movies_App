@@ -23,21 +23,28 @@ class Home extends StatelessWidget {
 }
 
 class HomeScreenBody extends StatelessWidget {
-  HomeScreenBody({super.key});
-
-  final List<Widget> tabs = [
-    const HomeTab(),
-     SearchTab(),
-    ExplorerTab(),
-    const ProfileTab(),
-  ];
+   HomeScreenBody({super.key});
+int explorerIndex = 0 ;
 
   @override
   Widget build(BuildContext context) {
+
+    final List<Widget> tabs = [
+      const HomeTab(),
+      SearchTab(),
+      ExplorerTab(),
+      const ProfileTab(),
+    ];
+
     return Scaffold(
       body: BlocBuilder<BottomNavigationCubit, int>(
         builder: (context, state) {
-          return tabs[state];
+          if(state > 3){
+            explorerIndex = state - 4 ;
+            return ExplorerTab(selectedIndex: explorerIndex,);
+          }else {
+            return tabs[state];
+          }
         },
       ),
       bottomNavigationBar: Padding(
@@ -46,8 +53,14 @@ class HomeScreenBody extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: BlocBuilder<BottomNavigationCubit, int>(
             builder: (context, state) {
+              int currentindex ;
+              if(state <3){
+                currentindex = state;
+              }else {
+                currentindex =2;
+              }
               return BottomNavigationBar(
-                currentIndex: state,
+                currentIndex: currentindex,
                 type: BottomNavigationBarType.fixed,
                 onTap: (index) {
                   context
