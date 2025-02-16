@@ -228,7 +228,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                   SizedBox(
                     height: height * (movie.cast?.length ?? 0) * 0.11,
                     child: ListView.separated(
-                        scrollDirection: Axis.vertical,
+                        primary: false,
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return CastWidget(
                               imagePath: movie.cast![index].urlSmallImage ?? '',
