@@ -54,7 +54,7 @@ int explorerIndex = 0 ;
           child: BlocBuilder<BottomNavigationCubit, int>(
             builder: (context, state) {
               int currentindex ;
-              if(state <3){
+              if(state < 4){
                 currentindex = state;
               }else {
                 currentindex =2;

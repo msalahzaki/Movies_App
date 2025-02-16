@@ -77,11 +77,16 @@ class _ProfileTabState extends State<ProfileTab> {
                               ),
                             ),
                             SizedBox(
-                              width: width * .4,
-                              child: Text(
-                                profileTabViewModel.currentUser!.data!.name ?? "",
-                                style: AppStyles.bold20white,
-                                overflow: TextOverflow.ellipsis,
+                              height: height * .005,
+                            ),
+                            Expanded(
+                              child: SizedBox(
+                                width: width * .4,
+                                  child: Text(
+                                  profileTabViewModel.currentUser!.data!.name ?? "",
+                                  style: AppStyles.bold20white,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             )
                           ],
@@ -161,7 +166,7 @@ class _ProfileTabState extends State<ProfileTab> {
               ],
             ),
               SizedBox(
-                height: height * .03,
+                height: height * .01,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(

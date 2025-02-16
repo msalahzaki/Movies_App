@@ -38,9 +38,9 @@ class ApiManger {
     }
   }
 
-  static Future<MoviesResponse> getMoviesByGenre(String genre) async {
+  static Future<MoviesResponse> getMoviesByGenre(String genre,{int pageNum=1}) async {
     final response = await http
-        .get(Uri.parse(url).replace(queryParameters: {'genre': genre}));
+        .get(Uri.parse("https://yts.mx/api/v2/list_movies.json?page=$pageNum&genre=$genre"));
     if (response.statusCode == 200) {
       return MoviesResponse.fromJson(json.decode(response.body));
     } else {
