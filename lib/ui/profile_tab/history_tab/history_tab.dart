@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/ui/profile_tab/history_tab/cubit/history_tab_states.dart';
 import 'package:movies_app/ui/profile_tab/history_tab/cubit/history_tab_view_model.dart';
 import 'package:movies_app/utils/app_assets.dart';
-import 'package:movies_app/utils/custom_dailog.dart';
 import '../../../utils/app_color.dart';
 import '../../../utils/app_styles.dart';
 import '../../movies/movie_details_screen.dart';

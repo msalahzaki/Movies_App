@@ -12,8 +12,6 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return const Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(

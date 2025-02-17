@@ -10,6 +10,7 @@ import 'package:movies_app/utils/custom_dailog.dart';
 import 'package:movies_app/utils/custom_elevated_button.dart';
 import 'package:movies_app/utils/custom_text_field.dart';
 import '../widget/language_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterScreenView extends StatefulWidget {
   static const String routeName = 'register';
@@ -25,6 +26,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
 
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return BlocConsumer<RegisterViewModel, RegisterState>(
@@ -33,7 +35,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Register',
+              local.register,
               style: AppStyles.normal16primary,
             ),
           ),
@@ -74,7 +76,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                       height: height * 0.01,
                     ),
                     Text(
-                      'Avatar',
+                      local.avatar,
                       style: AppStyles.normal16gray,
                     ),
                     SizedBox(
@@ -85,7 +87,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                         return viewModel.validName(text);
                       },
                       controller: viewModel.name,
-                      hintText: 'Name',
+                      hintText: local.name,
                       hintStyle: AppStyles.normal16white,
                       style: AppStyles.normal16white,
                       prefixIcon: ImageIcon(AssetImage(AppAssets.nameIcon)),
@@ -98,7 +100,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                         return viewModel.validEmail(text);
                       },
                       controller: viewModel.email,
-                      hintText: 'Email',
+                      hintText: local.email,
                       keyboardType: TextInputType.emailAddress,
                       hintStyle: AppStyles.normal16white,
                       style: AppStyles.normal16white,
@@ -113,7 +115,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                       },
                       controller: viewModel.password,
                       obscureText: viewModel.obSecure,
-                      hintText: 'Password',
+                      hintText: local.password,
                       hintStyle: AppStyles.normal16white,
                       style: AppStyles.normal16white,
                       prefixIcon: ImageIcon(AssetImage(AppAssets.passwordIcon)),
@@ -133,7 +135,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                       },
                       controller: viewModel.confirmPassword,
                       obscureText: viewModel.obSecure,
-                      hintText: 'Confirm Password',
+                      hintText: local.confirm_password,
                       hintStyle: AppStyles.normal16white,
                       style: AppStyles.normal16white,
                       prefixIcon: ImageIcon(AssetImage(AppAssets.passwordIcon)),
@@ -152,7 +154,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                         return viewModel.validPhoneNumber(text);
                       },
                       controller: viewModel.phone,
-                      hintText: 'Phone Number',
+                      hintText: local.phone_number,
                       style: AppStyles.normal16white,
                       hintStyle: AppStyles.normal16white,
                       prefixIcon: ImageIcon(AssetImage(AppAssets.phoneIcon)),
@@ -162,7 +164,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                     ),
                     CustomElevatedButton(
                       onButtonClicked: viewModel.register,
-                      buttonText: 'Create Account',
+                      buttonText: local.register,
                       textStyle: AppStyles.normal20black,
                     ),
                     SizedBox(
@@ -170,7 +172,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                     ),
                     InkWell(
                       onTap: () {
-                        // todo : Navigate To Login Screen -> PushReplacementNamed
+
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => const LoginScreen(),
                         ));
@@ -179,10 +181,10 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
                           textAlign: TextAlign.center,
                           TextSpan(children: [
                             TextSpan(
-                                text: 'Already Have Account ? ',
+                                text:  local.already_have_account,
                                 style: AppStyles.normal14white),
                             TextSpan(
-                                text: 'Login', style: AppStyles.normal14primary)
+                                text: local.login, style: AppStyles.normal14primary)
                           ])),
                     ),
                     SizedBox(
@@ -215,7 +217,7 @@ class _RegisterScreenViewState extends State<RegisterScreenView> {
           CustomDailog.showAwesomeSuccessMessageDialog(
               context: context,
               massage: state.successMessage,
-              okText: 'Go To Login',
+              okText: 'Go To '+local.login,
               okFunction: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pushReplacement(MaterialPageRoute(

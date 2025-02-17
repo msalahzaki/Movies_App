@@ -5,7 +5,7 @@ import 'package:movies_app/utils/app_styles.dart';
 
 class RateWidget extends StatelessWidget {
   num? rate;
-  RateWidget({required this.rate});
+  RateWidget({super.key, required this.rate});
 
   @override
   Widget build(BuildContext context) {

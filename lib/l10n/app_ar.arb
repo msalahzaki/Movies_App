@@ -1,0 +1,61 @@
+{
+  "login": "تسجيل الدخول",
+  "logout": "تسجيل الخروج",
+  "sign_up": "إنشاء حساب",
+  "register": "تسجيل",
+  "registration": "التسجيل",
+  "name": "الاسم ",
+  "username": "اسم المستخدم",
+  "phone_number": "رقم الهاتف",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "confirm_password": "تأكيد كلمة المرور",
+  "forgot_password": "هل نسيت كلمة المرور؟",
+  "reset_password": "إعادة تعيين كلمة المرور",
+  "enter_username": "أدخل اسم المستخدم",
+  "enter_phone_number": "أدخل رقم هاتفك",
+  "enter_email": "أدخل بريدك الإلكتروني",
+  "email_is_required": "ادخل الايميل",
+  "password_is_required": "ادخل كلمة السر",
+  "enter_password": "أدخل كلمة المرور",
+  "enter_confirm_password": "أكد كلمة المرور",
+  "invalid_email": "عنوان البريد الإلكتروني غير صالح",
+  "signOut": "تسجيل الخروج",
+  "welcome_back": "مرحبًا بعودتك!",
+  "create_account": "إنشاء حساب",
+  "google_sign_in": "تسجيل الدخول عبر جوجل",
+  "account_not_found": "الحساب غير موجود",
+  "account_created_successfully": "تم إنشاء الحساب بنجاح!",
+  "logging_in": "جاري تسجيل الدخول...",
+  "signing_up": "جاري إنشاء الحساب...",
+  "registering": "جاري التسجيل...",
+  "loading": "جاري التحميل...",
+  "dont_have_account": "ليس لديك حساب؟",
+  "verify": "تحقق من الايميل",
+  "avatar": "الصورة الرمزية",
+  "already_have_account": "لديك حساب بالفعل؟",
+  "see_more" : "عرض المزيد",
+  "wishList": "قائمة المفضل",
+  "history": "السجل",
+  "editProfile": "تعديل الملف الشخصي",
+  "updateData": "تحديث البيانات",
+  "deleteAccount": "حذف الحساب",
+  "deleteProfileWarning": "أنت على وشك حذف الملف الشخصي، ولا يمكن التراجع عن هذا الإجراء.",
+  "typeNumberToConfirm": "اكتب هذا الرقم لتأكيد",
+  "incorrectNumber": "رقم غير صحيح! يرجى المحاولة مرة أخرى.",
+  "error": "خطأ",
+  "delete": "حذف",
+  "cancel": "إلغاء",
+  "enterTheNumber": "أدخل الرقم",
+  "search": "بحث"
+
+
+
+
+
+
+
+
+
+
+}

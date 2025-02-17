@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/ui/profile_tab/update_profile/cubit/update_profile_viewmodel.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ConfirmDeleteDialog {
 
   static void show(BuildContext context, UpdateProfileViewmodel viewmodel) {
-
+    var local = AppLocalizations.of(context)!;
      int randomCode = Random().nextInt(1000) + 100;
     TextEditingController codeController = TextEditingController();
 
@@ -19,23 +19,23 @@ class ConfirmDeleteDialog {
 
       body: Column(
         children: [
-           Text("You Are About To Delete Profile And No Way To Undo Action ", style: AppStyles.normal16black),
-          Text("Type this number To Confirm: $randomCode ", style: AppStyles.normal20black),
+           Text(local.deleteProfileWarning, style: AppStyles.normal16black),
+          Text("${local.typeNumberToConfirm} $randomCode ", style: AppStyles.normal20black),
 
           const SizedBox(height: 10),
           TextField(style: AppStyles.normal20white,
             controller: codeController,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: "Enter the number",
+            decoration:  InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: local.enterTheNumber,
             ),
           ),
           const SizedBox(height: 10),
         ],
       ),
-      btnCancelText: "Cancel",
-        btnOkText: "Delete",
+      btnCancelText: local.cancel,
+        btnOkText: local.delete,
         btnOkColor: AppColor.red,
         btnCancelColor: AppColor.green,
       btnCancelOnPress: (){},
@@ -48,8 +48,8 @@ class ConfirmDeleteDialog {
             context: context,
             dialogType: DialogType.error,
             animType: AnimType.scale,
-            title: "Error",
-            desc: "Incorrect number! Please try again.",
+            title: local.error,
+            desc: local.incorrectNumber,
             autoHide: const Duration(seconds: 2),
            dismissOnTouchOutside: false
           ).show();

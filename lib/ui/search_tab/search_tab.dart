@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/ui/movies/movie_details_screen.dart';
-import 'package:movies_app/ui/movies/movie_poster_rate_widget.dart';
 import 'package:movies_app/ui/search_tab/search_response.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 import 'cubit/search_cubit.dart';
 
@@ -13,6 +14,8 @@ class SearchTab extends StatelessWidget {
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
+
     return BlocProvider(
       create: (context) => SearchMovieCubit(),
       child: Builder(builder: (context) {
@@ -26,11 +29,11 @@ class SearchTab extends StatelessWidget {
                   controller: controller,
                   style: AppStyles.normal16white,
                   decoration: InputDecoration(
-                    prefixIcon:  ImageIcon(color: AppColor.white,AssetImage('assets/icons/searchIcon.png')),
+                    prefixIcon:  const ImageIcon(color: AppColor.white,AssetImage('assets/icons/searchIcon.png')),
                     filled: true,
                     fillColor: AppColor.semiBlack,
-                    enabledBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(13))),
-                    hintText: "Search",
+                    enabledBorder:  const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(13))),
+                    hintText: local.search,
                     hintStyle: AppStyles.normal16white,
                     focusedBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(13))),
                   ),
