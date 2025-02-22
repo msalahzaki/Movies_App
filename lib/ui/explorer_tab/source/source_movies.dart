@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/model/MoviesResponse.dart';
 import 'package:movies_app/ui/explorer_tab/explorer_tab.dart';
 import 'package:movies_app/ui/explorer_tab/movies/movies_widget.dart';
 import 'package:movies_app/ui/explorer_tab/source/cubit/source_movies_states.dart';
@@ -91,7 +90,7 @@ class _SourceMoviesState extends State<SourceMovies>
 
             /*  */
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 color: Colors.grey,
               ),

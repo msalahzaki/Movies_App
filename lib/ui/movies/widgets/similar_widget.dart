@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/ui/movies/cubit/similar_states.dart';
 import 'package:movies_app/ui/movies/cubit/similar_view_model.dart';
 import 'package:movies_app/ui/movies/movie_details_screen.dart';
 import 'package:movies_app/ui/movies/movie_poster_rate_widget.dart';
-import 'package:movies_app/utils/app_assets.dart';
 
 import '../../../utils/app_color.dart';
 import '../../../utils/app_styles.dart';

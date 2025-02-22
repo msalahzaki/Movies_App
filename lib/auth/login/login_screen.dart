@@ -10,7 +10,7 @@ import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/custom_dailog.dart';
 import 'package:movies_app/utils/dailog_utilis.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../auth/widget/language_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -25,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool obsecure = true;
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
     LoginViewModel loginViewModel = BlocProvider.of<LoginViewModel>(context);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -45,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     loginViewModel.goToHome(context);
                   });
             } else if (state is LoadingLoginState) {
-              DailogUtilis.showLoading(context: context, message: "Loading...");
+              DailogUtilis.showLoading(context: context, message: local.logging_in);
             }
           },
           child: Scaffold(
@@ -66,14 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: loginViewModel.emailController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Email is required';
+                              return local.email_is_required;
                             }
 
                             return null;
                           },
                           style: AppStyles.normal20white,
                           decoration: InputDecoration(
-                            hintText: "Email",
+                            hintText: local.email,
                             prefixIcon: Image.asset(AppAssets.emailIcon),
                           )),
                       SizedBox(
@@ -83,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: loginViewModel.passwordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'passsword is required';
+                            return local.password_is_required;
                           }
 
                           return null;
@@ -101,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : Icons.visibility),
                           ),
                           prefixIcon: Image.asset(AppAssets.passwordIcon),
-                          hintText: "Password",
+                          hintText: local.password,
                         ),
                       ),
                       SizedBox(
@@ -116,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ));
                           },
                           child: Text(
-                            "Forget Password ?",
+                            local.forgot_password,
                             style: AppStyles.normal14primary,
                           ),
                         ),
@@ -129,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             loginViewModel.login();
                           },
                           style: AppStyles.normal20black,
-                          text: "Login",
+                          text: local.login,
                           width: width,
                           height: height),
                       SizedBox(
@@ -147,11 +148,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: Text.rich(TextSpan(children: <InlineSpan>[
                             TextSpan(
-                              text: 'Don’t Have Account ? ',
+                              text: local.dont_have_account,
                               style: AppStyles.normal14white,
                             ),
                             TextSpan(
-                              text: 'Create One',
+                              text: local.create_account,
                               style: AppStyles.normal14primary,
                             )
                           ])),
@@ -194,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           isIcon: true,
                           icon: AppAssets.googleIcon,
                           style: AppStyles.normal16black,
-                          text: "Login with google",
+                          text: local.google_sign_in,
                           width: width,
                           height: height),
                       SizedBox(

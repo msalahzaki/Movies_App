@@ -14,6 +14,7 @@ import 'package:movies_app/ui/profile_tab/watchList_tab/watchList_tab.dart';
 import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class ProfileTab extends StatefulWidget {
@@ -42,6 +43,7 @@ class _ProfileTabState extends State<ProfileTab> {
 
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     profileTabViewModel.loginViewModel = BlocProvider.of<LoginViewModel>(context);
@@ -124,7 +126,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       // ),
                     ),
                     Text(textAlign: TextAlign.center,
-                      "Wish List",
+                      local.wishList,
                       style: AppStyles.bold24white,
                     ),
                   ],
@@ -158,7 +160,7 @@ class _ProfileTabState extends State<ProfileTab> {
                       // ),
                     ),
                     Text(textAlign: TextAlign.center,
-                      "History",
+                      local.history,
                       style: AppStyles.bold24white,
                     ),
                   ],
@@ -181,7 +183,7 @@ class _ProfileTabState extends State<ProfileTab> {
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UpdateProfile(),));
                           },
                           child: Text(
-                            "Edit Profile",
+                            local.editProfile,
                             style: AppStyles.normal20black,
                           )),
                     ),
@@ -197,8 +199,8 @@ class _ProfileTabState extends State<ProfileTab> {
                             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const LoginScreen(),));
                           },
                           child: Text(
-                            "Exit > ",
-                            style: AppStyles.normal20white,
+                            "${local.signOut}  ",
+                            style: AppStyles.normal16white,
                           )),
                     ),
                   ],
@@ -213,14 +215,14 @@ class _ProfileTabState extends State<ProfileTab> {
                     },
                     tabs: [
                       Tab(
-                        iconMargin: const EdgeInsets.all(8),
+                        iconMargin: const EdgeInsets.all(6),
                         icon: Image.asset(AppAssets.watchListIcon),
-                        text: "Watch List",
+                        text: local.wishList,
                       ),
                       Tab(
-                        iconMargin: const EdgeInsets.all(8),
+                        iconMargin: const EdgeInsets.all(6),
                         icon: Image.asset(AppAssets.historyIcon),
-                        text: "History",
+                        text: local.history,
                       ),
                     ],
                   )

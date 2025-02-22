@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgetPassword extends StatelessWidget {
   static const String routeName = "Forget Password";
@@ -9,11 +10,12 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var Height=MediaQuery.of(context).size.height;
-    var Width=MediaQuery.of(context).size.width;
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
+    var local = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Forget Password"),
+        title:  Text(local.forgot_password),
       ),
       backgroundColor: AppColor.black,
       body: Container(
@@ -22,29 +24,29 @@ class ForgetPassword extends StatelessWidget {
           children: [
             Image.asset("assets/images/forgotPassword.png"),
             SizedBox(
-              width: Width*0.8,
+              width: width*0.8,
               child: TextFormField(
                 style: const TextStyle(color: AppColor.white),
                 decoration: InputDecoration(
                     filled: true,
                     fillColor: AppColor.semiBlack,
-                    hintText: "Email",
+                    hintText: local.email,
                     hintStyle: const TextStyle(color: AppColor.white),
                     prefixIcon: Image.asset("assets/images/emailIcon.png"),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15))),
               ),
             ),
-            SizedBox(height: Height*0.03,),
+            SizedBox(height: height*0.03,),
             MaterialButton(
               shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-              height: Height*0.065,
-              minWidth: Width*0.8,
+              height: height*0.065,
+              minWidth: width*0.8,
               color: AppColor.orange,
               onPressed: () {
                 //
               },
-              child: Text("Verify Email",style: AppStyles.normal20black),
+              child: Text(local.verify,style: AppStyles.normal20black),
             ),
           ],
         ),

@@ -26,5 +26,14 @@ class HistoryTabViewModel extends Cubit<HistoryTabStates> {
       emit(HistoryTabErrorState(errorMessage: e.toString()));
     }
   }
+  Future<void> RemoveMoviesFromHistory(int ID) async {
+
+      emit(HistoryTabLoadingState());
+      Box watchMovies = await Hive.openBox('Movies_History');
+       await watchMovies.delete(ID);
+      await watchMovies.close();
+      getAllMoviesFromHistory();
+
+  }
 
 }

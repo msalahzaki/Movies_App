@@ -7,7 +7,7 @@ import 'package:movies_app/utils/app_color.dart';
 class MovieProfileItem extends StatelessWidget{
   String? imageUrl;
   num? rate;
-  MovieProfileItem({required this.imageUrl, required this.rate});
+  MovieProfileItem({super.key, required this.imageUrl, required this.rate});
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

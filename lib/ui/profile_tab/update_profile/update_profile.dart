@@ -11,17 +11,19 @@ import 'package:movies_app/utils/app_assets.dart';
 import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 import 'package:movies_app/utils/custom_dailog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpdateProfile extends StatelessWidget {
   const UpdateProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
     Size size = MediaQuery.of(context).size;
     late UpdateProfileViewmodel viewmodel;
-    return Scaffold(
+    return Scaffold(resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Update Profile"),
+        title:  Text(local.editProfile),
       ),
       body: BlocProvider(
         create: (context) => UpdateProfileViewmodel(),
@@ -113,8 +115,8 @@ class UpdateProfile extends StatelessWidget {
                             Navigator.pushNamed(
                                 context, ResetPassword.routeName);
                           },
-                          child: Text(
-                            "Reset Password",
+                          child: Text(local.reset_password
+                            ,
                             style: AppStyles.normal20white,
                           ),
                         ),
@@ -128,7 +130,7 @@ class UpdateProfile extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: AppColor.red),
                       child: Text(
-                        "Delete Account",
+                        local.deleteAccount,
                         style: AppStyles.normal20white,
                       ),
                     ),
@@ -138,7 +140,7 @@ class UpdateProfile extends StatelessWidget {
                           viewmodel.updateProfile();
                         },
                         child: Text(
-                          "Update Data",
+                         local.updateData,
                           style: AppStyles.normal20black,
                         )),
                     SizedBox(height: size.height * .02),

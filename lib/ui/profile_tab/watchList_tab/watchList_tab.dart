@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/auth/login/cubit/login_states.dart';
 import 'package:movies_app/ui/movies/movie_details_screen.dart';
 import 'package:movies_app/ui/profile_tab/profile_widgets/movie_profile_item.dart';
 import 'package:movies_app/ui/profile_tab/watchList_tab/cubit/watch_list_states.dart';
@@ -10,7 +9,7 @@ import 'package:movies_app/utils/app_color.dart';
 import 'package:movies_app/utils/app_styles.dart';
 
 class WatchlistTab extends StatefulWidget {
-   WatchlistTab(this.viewModel);
+   WatchlistTab(this.viewModel, {super.key});
   final WatchListViewModel viewModel;
   @override
   State<WatchlistTab> createState() => _WatchlistTabState();

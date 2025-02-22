@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/cubit/bottomNavigation_cubit.dart';
-import 'package:movies_app/ui/explorer_tab/explorer_tab.dart';
-import 'package:movies_app/ui/explorer_tab/source/source_movies.dart';
 import 'package:movies_app/ui/home_tab/cubit/genres_states.dart';
 import 'package:movies_app/ui/home_tab/cubit/genres_view_model.dart';
 import 'package:movies_app/ui/movies/movie_details_screen.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:movies_app/utils/app_assets.dart';
 
 import '../../utils/app_color.dart';
@@ -32,6 +30,7 @@ class _GenresWidgetState extends State<GenresWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var local = AppLocalizations.of(context)!;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return BlocProvider(
@@ -81,7 +80,7 @@ class _GenresWidgetState extends State<GenresWidget> {
                      //  BlocProvider.of<BottomNavigationCubit>(context).changeNavigationWidget(2);
                         },
                         child: Text(
-                          "See More ->",
+                          "${local.see_more} -->",
                           style: AppStyles.normal16primary,
                         )),
                   ],
