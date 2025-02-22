@@ -1,6 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movies_app/api/api_manger.dart';
 import 'package:movies_app/auth/login/cubit/login_states.dart';
 import 'package:movies_app/home.dart';
@@ -71,5 +73,20 @@ class LoginViewModel extends Cubit<LoginStates> {
 
   void goToHome(BuildContext context) {
     Navigator.pushReplacementNamed(context, Home.homeScreenId);
+  }
+
+  Future<void> signInWithGoogle(BuildContext context) async {
+    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+        accessToken: gAuth.accessToken, idToken: gAuth.idToken);
+    userToken = credential.token.toString();
+    await _saveToken(credential.token.toString());
+    final UserCredential uCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    if (uCredential.user != null) {
+      goToHome(context);
+      print(uCredential.user!.email);
+    }
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
@@ -15,13 +16,16 @@ import 'package:movies_app/ui/profile_tab/cubit/profile_tab_viewModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'cubit/language_cubit.dart';
 import 'package:movies_app/home.dart';
+import 'firebase_options.dart';
 import 'utils/BlocObserver.dart';
 import 'utils/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Directory appDocDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocDir.path);
 
