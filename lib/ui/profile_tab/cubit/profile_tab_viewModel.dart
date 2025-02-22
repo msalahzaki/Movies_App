@@ -13,25 +13,34 @@ class ProfileTabViewmodel extends Cubit<ProfileTabStates>{
   String stoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTAwM2U1MmRiNDBjYTQwNTYwYWNmZCIsImVtYWlsIjoieW91c3NlZjIyQGdtYWlsLmNvbSIsImlhdCI6MTczODY1NDc5NX0.Y4PBCVjPm4uEA9-q0TNsbOfzFzj_tnVFXX4WXYZUzMI";
   int selectedIndex = 0;
   Future<UserProfile?> getProfile({required String? token}) async {
-    token ??= stoken ;
-
-    emit(GetProfileLoadingState());
-    UserProfile? response = await ApiManger.getProfileData(token);
-    if (response == null) {
-      emit(GetProfileErrorState("Erorr get Profile Information"));
-    }
-    else if (response.data == null) {
-      print(response.message!);
-      emit(GetProfileErrorState(response.message!));
-    }
+    if (loginViewModel!.isGoogleUser) {
+    currentUser = UserProfile(data: Data(
+      avaterId: 1,name: loginViewModel?.googleUser.user?.email ??""
+    )) ;
+    emit(GetProfileSussesState(currentUser!));
+  }
     else {
-      currentUser = response;
-      emit(GetProfileSussesState(response));
+      token ??= stoken;
+      emit(GetProfileLoadingState());
+      UserProfile? response = await ApiManger.getProfileData(token);
+      if (response == null) {
+        emit(GetProfileErrorState("Erorr get Profile Information"));
+      }
+      else if (response.data == null) {
+        print(response.message!);
+        emit(GetProfileErrorState(response.message!));
+      }
+      else {
+        currentUser = response;
+        emit(GetProfileSussesState(response));
+      }
+
     }
     return null;
   }
-  void changeSelectedIndex(int index){
-    selectedIndex = index;
-    emit(ChangeIndexState());
-  }
+    void changeSelectedIndex(int index) {
+      selectedIndex = index;
+      emit(ChangeIndexState());
+    }
+
 }

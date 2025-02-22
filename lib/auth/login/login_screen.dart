@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Custom_Elevated_Button_login(
                           ontab: () {
-                            loginViewModel.login();
+                            loginViewModel.signInWithGoogle(context);
                           },
                           isIcon: true,
                           icon: AppAssets.googleIcon,

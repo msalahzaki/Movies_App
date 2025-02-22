@@ -29,7 +29,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     viewmodel.getMovieDetails(widget.movieId);
 
