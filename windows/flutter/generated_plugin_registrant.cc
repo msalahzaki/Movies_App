@@ -14,10 +14,10 @@
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   ConnectivityPlusWindowsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("ConnectivityPlusWindowsPlugin"));
-    FirebaseAuthPluginCApiRegisterWithRegistrar(
-            registry->GetRegistrarForPlugin("FirebaseAuthPluginCApi"));
-    FirebaseCorePluginCApiRegisterWithRegistrar(
-            registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
+  FirebaseAuthPluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FirebaseAuthPluginCApi"));
+  FirebaseCorePluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
   RivePluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("RivePlugin"));
 }

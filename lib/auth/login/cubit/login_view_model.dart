@@ -15,6 +15,8 @@ class LoginViewModel extends Cubit<LoginStates> {
   TextEditingController passwordController = TextEditingController(text: "You2512@");
   late String? userToken;
   late String? savedPass;
+  late UserCredential googleUser;
+  bool isGoogleUser = false ;
   LoginViewModel() : super(LoadingLoginState());
   Future<void> login() async {
     final List<ConnectivityResult> connectivityResult =
@@ -76,7 +78,8 @@ class LoginViewModel extends Cubit<LoginStates> {
   }
 
   Future<void> signInWithGoogle(BuildContext context) async {
-    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+    isGoogleUser =true ;
+        final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication gAuth = await gUser!.authentication;
     final credential = GoogleAuthProvider.credential(
         accessToken: gAuth.accessToken, idToken: gAuth.idToken);
@@ -84,9 +87,11 @@ class LoginViewModel extends Cubit<LoginStates> {
     await _saveToken(credential.token.toString());
     final UserCredential uCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
+    googleUser = uCredential ;
     if (uCredential.user != null) {
       goToHome(context);
       print(uCredential.user!.email);
     }
+
   }
 }
